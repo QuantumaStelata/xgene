@@ -1,1 +1,1 @@
-web: gunicorn xgene.wsgi
+web: gunicorn app.wsgi --log-file -
