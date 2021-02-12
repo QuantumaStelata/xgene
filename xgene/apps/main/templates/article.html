@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block banner %}
+    <div class='banner' style="background-image: url({% static 'main/img/article-banner.png' %});"></div>
+{% endblock %}
+
+{% block main %}
+    <div class="news">
+        <div class="article" style="height: auto; min-height: 15vh; word-wrap: break-word;">
+            <h1 style="color: #fff; margin: 20px 30px; text-align: center;">
+                {{article.article_name}}
+            </р>
+        </div>
+        <div class="article-text" style="height: auto; min-height: 15vh; word-wrap: break-word;">
+            <p>
+                {% autoescape off %}{{article.article_text}}{% endautoescape %}
+            </p>
+        </div>
+    </div>
+{% endblock %}

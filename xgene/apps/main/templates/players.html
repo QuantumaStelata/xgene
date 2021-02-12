@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block banner %}
+    <div class='banner' style="background-image: url({% static 'main/img/players-banner.jpg' %});"></div>
+{% endblock %}
+
+{% block main %}
+<div class="players-list" id='players-list'>
+    <h1 style="color: #fff; margin-top: 40px;">Личный состав клана</h1>
+    <hr width="100%" color='#01cddb' style="margin: 20px 0 40px">
+    <table>
+        <tr>
+            <th>Игрок</th>
+            <th>BTL
+                <span>Количество боев</span>
+            </th>
+            <th>WGR
+                <span>Личный рейтинг WG</span>
+            </th>
+            <th>W/B
+                <span>Процент побед</span>
+            </th>
+            <th>D/B
+                <span>Средний урон</span>
+            </th>
+            <th>F/B
+                <span>Среднее количество уничтоженной техники</span>
+            </th>
+        </tr>
+        {% for player in list %}
+        <tr>
+            <td>{{player.player_name}}
+                <p>{{player.player_role}}</p>
+            </td>
+            <td>{{player.player_battles}}</td>
+            <td>{{player.player_wgr}}</td>
+            <td>{{player.player_win}}%</td>
+            <td>{{player.player_damage}}</td>
+            <td>{{player.player_frags}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
