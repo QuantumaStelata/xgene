@@ -153,9 +153,5 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
-
-# Heroku
-import dj-database-url
-
-db_from_env = dj-database-url.config()
-DATABASE['default'].update(db_from_env)
+import django_heroku
+django_heroku.settings(locals())
