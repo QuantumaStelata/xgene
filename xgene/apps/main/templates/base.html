@@ -5,14 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'main/css/base.css' %}">
-    <link rel="shortcut icon" href="{% static 'main/img/xgene_title.ico' %}" type="image/ico">
-    <title>XGENE</title>
+    <link rel="shortcut icon" href="{{clan.clan_emblem}}" type="image/ico">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+    <title>{{clan.clan_tag}}</title>
+    <style>
+        :root {
+            --color: {{clan.clan_color}};
+            --pass: {{clan.clan_color}}2a;
+        } 
+    </style>
 </head>
 <body>
     <div class='main'>
         <div class='header'>
             <div class='header-main'>
-                <div class="header-name"></div>
+                <h1 style="font-family: 'Bungee Shade', cursive;; font-size: 3.2em; width: 30vw;">{{clan.clan_tag}}</h1>
                 <div class='bar'>
                     <a href="{% url 'main' %}">Главная </a>
                     <a href="{% url 'players' %}">Личный состав</a>

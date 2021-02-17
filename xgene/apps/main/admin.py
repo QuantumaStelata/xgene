@@ -6,9 +6,15 @@ from .models import *
 
 admin.site.register(ClanId)
 
-@admin.register(ClanName)
-class ClanNameAdmin(admin.ModelAdmin):
-    list_display = ('clan_name', 'clan_motto')
+@admin.register(ClanStatic)
+class ClanStaticAdmin(admin.ModelAdmin):
+    list_display = ('clan_tag', 'clan_static_update')
+
+
+@admin.register(ClanInfo)
+class ClanInfoAdmin(admin.ModelAdmin):
+    list_display = ('clan_tag', 'clan_name', 'clan_motto')
+    fields = ('clan_tag', 'clan_name', 'clan_motto', 'clan_color',)
 
 admin.site.register(ClanRole)
 
@@ -20,5 +26,3 @@ class PlayersAdmin(admin.ModelAdmin):
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('article_name', 'article_date', 'article_publicate')
-
-

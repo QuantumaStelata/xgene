@@ -12,70 +12,70 @@
         <div class="stronghold-elo">
             <div>
                 <p>eSH X</p>
-                <p>{{clan.clan_sh10}}</p>
+                <p>{{static.clan_sh10}}</p>
             </div>
             <div>
                 <p>eSH VIII</p>
-                <p>{{clan.clan_sh8}}</p>
+                <p>{{static.clan_sh8}}</p>
             </div>
             <div>
                 <p>eSH VI</p>
-                <p>{{clan.clan_sh6}}</p>
+                <p>{{static.clan_sh6}}</p>
             </div>
         </div>
     </div>
-    <div class='main-logo' style="background-image: url({% static 'main/img/xgene-logo.png' %});"></div>
+    <div class='main-logo' style="background-image: url('{{clan.clan_emblem}}');"></div>
     <div class="globalmap">
         <h1>Глобальная карта</h1>
         <div class="globalmap-elo">
             <div>
                 <p>eSH X</p>
-                <p>{{clan.clan_gm10}}</p>
+                <p>{{static.clan_gm10}}</p>
             </div>
             <div>
                 <p>eSH VIII</p>
-                <p>{{clan.clan_gm8}}</p>
+                <p>{{static.clan_gm8}}</p>
             </div>
             <div>
                 <p>eSH VI</p>
-                <p>{{clan.clan_gm6}}</p>
+                <p>{{static.clan_gm6}}</p>
             </div>
         </div>
     </div>
 </div>
 <div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: center; height: 10vh;">
-    <p style="text-align: center; color: #01cddb; font-weight: bold; font-size: 30px; padding-top: 20px;">[XGENE]</p>
+    <p style="text-align: center; color: var(--color); font-weight: bold; font-size: 30px; padding-top: 20px;">[{{clan.clan_tag}}]</p>
     <p>  </p>
-    <p style="text-align: center; color: #fff; font-weight: bold; font-size: 30px; padding-top: 20px;">XGENE</p> 
+    <p style="text-align: center; color: #fff; font-weight: bold; font-size: 30px; padding-top: 20px;">{{clan.clan_name}}</p> 
 </div>
-<hr width="100%" color='#01cddb' style="margin: 50px 0 20px">
+<hr width="100%" style="margin: 50px 0 20px">
 <div class="container-clan-statistic">
     <div>
-        <h2 style="margin: 0; color: #01cddb;">{{clan.clan_battles_count}}</h2>
+        <h2 style="margin: 0; color: var(--color);">{{static.clan_battles_count}}</h2>
         <p>Среднее количество боев</p>      
     </div>
     <div>
-        <h2 style="margin: 0; color: #01cddb;">{{clan.clan_win_rate}}%</h2>
+        <h2 style="margin: 0; color: var(--color);">{{static.clan_win_rate}}%</h2>
         <p>Среднее процент побед</p>      
     </div>
     <div>
-        <h2 style="margin: 0; color: #01cddb; font-size: 35px;">{{clan.clan_rate}}</h2>
+        <h2 style="margin: 0; color: var(--color); font-size: 35px;">{{static.clan_rate}}</h2>
         <p>Рейтинг клана</p>
         <div style="display: flex; flex-direction: row; font-size: 12px; margin-top: 10px;">
             <img src="{% static 'main/img/rating-profile-place-icon.png' %}" style="margin-bottom: -4px;"></img>
-            <p>{{clan.clan_position}}   </p>
+            <p>{{static.clan_position}}   </p>
         </div>    
     </div>
     <div>
-        <h2 style="margin: 0; color: #01cddb;">{{clan.clan_xp_per_battle}}</h2>
+        <h2 style="margin: 0; color: var(--color);">{{static.clan_xp_per_battle}}</h2>
         <p>Средний опыт за бой</p>      
     </div>
     <div>
-        <h2 style="margin: 0; color: #01cddb;">{{clan.clan_damage_per_battle}}</h2>
+        <h2 style="margin: 0; color: var(--color);">{{static.clan_damage_per_battle}}</h2>
         <p>Средний урон за бой</p>      
     </div>
 </div>
-<hr width="100%" color='#01cddb' style="margin: 20px 0 40px">
+<hr width="100%" style="margin: 20px 0 40px">
 <div class="container-best-players">
     <h1>Лучшие игроки клана</h1>
     <p style="color: rgba(255, 255, 255, 0.2); font-style: italic;">последние 30 дней</p>
@@ -85,7 +85,7 @@
             <table>
                 {% for player in top_wins %}
                     <tr>
-                        <td style="color: #01cddb; font-weight: bold;">{{player.account_name}}</td>
+                        <td style="color: var(--color); font-weight: bold;">{{player.account_name}}</td>
                         <td>{{player.wins_ratio}}%</td>
                     </tr>
                 {% endfor %}
@@ -96,7 +96,7 @@
             <table>
                 {% for player in top_battles %}
                     <tr>
-                        <td style="color: #01cddb; font-weight: bold;">{{player.account_name}}</td>
+                        <td style="color: var(--color); font-weight: bold;">{{player.account_name}}</td>
                         <td>{{player.battles_count_daily}}</td>
                     </tr>
                 {% endfor %}
@@ -107,7 +107,7 @@
             <table>
                 {% for player in top_damage %}
                     <tr>
-                        <td style="color: #01cddb; font-weight: bold;">{{player.account_name}}</td>
+                        <td style="color: var(--color); font-weight: bold;">{{player.account_name}}</td>
                         <td>{{player.damage_avg}}</td>
                     </tr>
                 {% endfor %}
