@@ -1,0 +1,13 @@
+[flake8]
+exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,*/migrations/*
+inline-quotes = '
+multiline-quotes = '
+max-line-length = 120
+select = E,F,W,C4,Q0,DJ,N80,ABS,JS
+ignore = W504, DJ08, DJ01,
+    E126,
+    # Continuation line over-indented for hanging indent. Uses 4 character for default, we use are 8,
+    DJ10,
+    # Model should define verbose_name in its Meta inner class
+    DJ11,
+    # Model should define verbose_name_plural in its Meta inner class
