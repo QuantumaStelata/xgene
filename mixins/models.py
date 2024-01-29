@@ -69,7 +69,7 @@ class SoftDeletionMixin(models.Model):
     all_objects = SoftDeletionManager(alive_only=False)
 
     class Meta:
-        abstact = True
+        abstract = True
 
 
 class ExternalIDMixin(models.Model):
