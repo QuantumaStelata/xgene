@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = ['*']
-
+AUTH_USER_MODEL = 'core.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -19,6 +19,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'apps.directory',
+    'apps.clan',
+    'apps.core',
+    'apps.marks',
 ]
 
 MIDDLEWARE = [
@@ -28,6 +31,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'cluster.middlewares.ThreadLocalUserMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
