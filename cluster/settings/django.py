@@ -6,8 +6,11 @@ from cluster.settings.environment import env
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = env.str('SECRET_KEY')
+
 DEBUG = env.bool('DEBUG')
+
 ALLOWED_HOSTS = ['*']
+
 AUTH_USER_MODEL = 'core.User'
 
 INSTALLED_APPS = [
@@ -81,10 +84,20 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REDIS_URL = env.str('REDIS_URL', 'redis://localhost:6379')
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': REDIS_URL + '/2',
+    },
+}
