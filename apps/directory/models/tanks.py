@@ -1,7 +1,9 @@
 from django.db import models
 
+from mixins.models import DateTimeMixin, ExternalIDMixin
 
-class Tank(models.Model):
+
+class Tank(DateTimeMixin, ExternalIDMixin):
     class Type(models.TextChoices):
         SPG = 'SPG', 'САУ'
         AT_SPG = 'AT-SPG', 'ПТ-САУ'
@@ -26,4 +28,4 @@ class Tank(models.Model):
     level = models.IntegerField()
     type = models.CharField(max_length=10, choices=Type)
     nation = models.CharField(max_length=7, choices=Nation)
-    tank_id = models.IntegerField(unique=True)
+    contour = models.URLField()
