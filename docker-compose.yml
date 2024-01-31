@@ -1,0 +1,54 @@
+version: "3.3"
+
+services:
+  db:
+    image: postgres:14-alpine
+    volumes:
+      - ./db_data/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-postgres}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env
+
+  redis:
+    image: redis:6.2
+
+  web:
+    build: .
+    restart: on-failure
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - ./.env
+
+  celery_worker:
+    build: .
+    entrypoint: celery -A cluster worker -l INFO --concurrency=1
+    user: "1000"
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+      - db
+
+  celery_beat:
+    build: .
+    entrypoint: celery -A cluster beat -l INFO
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+      - db

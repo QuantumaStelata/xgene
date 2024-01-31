@@ -8,15 +8,17 @@ class MarkService:
     def update_gun_marks(cls):
         marks = []
 
-        tanks = Tank.objects.all().values_list('id', flat=True)
+        tanks = Tank.objects.all().values_list('id', 'external_id', named=True)
+        tanks_mapped = {tank.external_id: tank.id for tank in tanks}
+
         data = PoliroidRequestService.get('gunmarks/api/eu/vehicles/20,30,40,50,55,60,65,70,75,80,85,90,95,100')
         for tank in data['data']:
-            if tank['id'] not in tanks:
+            if tank['id'] not in tanks_mapped.keys():
                 continue
 
             marks.append(
                 GunMark(
-                    tank_id=tank['id'],
+                    tank_id=tanks_mapped[tank['id']],
                     mark_20=tank['marks']['20'],
                     mark_30=tank['marks']['30'],
                     mark_40=tank['marks']['40'],
@@ -47,15 +49,17 @@ class MarkService:
     def update_mastery(cls):
         masters = []
 
-        tanks = Tank.objects.all().values_list('id', flat=True)
+        tanks = Tank.objects.all().values_list('id', 'external_id', named=True)
+        tanks_mapped = {tank.external_id: tank.id for tank in tanks}
+
         data = PoliroidRequestService.get('mastery/api/eu/vehicles')
         for tank in data['data']:
-            if tank['id'] not in tanks:
+            if tank['id'] not in tanks_mapped.keys():
                 continue
 
             masters.append(
                 Mastery(
-                    tank_id=tank['id'],
+                    tank_id=tanks_mapped[tank['id']],
                     class_3=tank['mastery'][0],
                     class_2=tank['mastery'][1],
                     class_1=tank['mastery'][2],
