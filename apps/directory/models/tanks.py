@@ -25,7 +25,10 @@ class Tank(DateTimeMixin, ExternalIDMixin):
         CZECH = 'czech', 'Чехословакия'
 
     name = models.CharField(max_length=256)
-    level = models.IntegerField()
+    level = models.PositiveSmallIntegerField()
     type = models.CharField(max_length=10, choices=Type)
     nation = models.CharField(max_length=7, choices=Nation)
     contour = models.URLField()
+
+    def __str__(self) -> str:
+        return f'{self.name} ({self.level} lvl.)'

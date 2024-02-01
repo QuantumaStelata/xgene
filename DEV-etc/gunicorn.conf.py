@@ -1,7 +1,7 @@
 import multiprocessing
 
 # worker_class = 'uvicorn.workers.UvicornWorker'
-bind = '0.0.0.0:8080'
+bind = '0.0.0.0:8000'
 workers = 2 or multiprocessing.cpu_count() * 2 + 1
 forwarded_allow_ips = '*'
 max_requests = 5000
