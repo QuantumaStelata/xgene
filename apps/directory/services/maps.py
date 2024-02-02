@@ -1,13 +1,13 @@
 import json
 
 from django.core.files.base import ContentFile
-from django.core.management.base import BaseCommand, CommandError
 
 from apps.directory.models import Map
 
 
-class Command(BaseCommand):
-    def handle(self, *args, **options):
+class MapService:
+    @classmethod
+    def update_maps(cls) -> list[Map]:
         fixture = 'fixtures/maps.json'
 
         maps = []
@@ -16,7 +16,7 @@ class Command(BaseCommand):
             data = json.load(file)
 
         if not data:
-            raise CommandError('Fixture read error')
+            return []
 
         for _map in data:
             file_path = _map['file']
@@ -25,7 +25,7 @@ class Command(BaseCommand):
 
             maps.append(Map(**_map))
 
-        Map.objects.bulk_create(
+        return Map.objects.bulk_create(
             maps,
             update_conflicts=True,
             update_fields=['name', 'file'],

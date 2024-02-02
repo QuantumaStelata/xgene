@@ -2,7 +2,7 @@
 
 python manage.py migrate
 
-if ! python manage.py load_clan; then
+if ! python manage.py update_clan; then
     exit
 fi
 

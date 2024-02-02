@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Боевые выплаты",
+        "external_id": "BATTLE_PAYMENTS",
+        "file": "fixtures/reserve_types/battle_payments.png"
+    },
+    {
+        "id": 2,
+        "name": "Тактическая подготовка",
+        "external_id": "TACTICAL_TRAINING",
+        "file": "fixtures/reserve_types/tactical_training.png"
+    },
+    {
+        "id": 3,
+        "name": "Военные учения",
+        "external_id": "MILITARY_MANEUVERS",
+        "file": "fixtures/reserve_types/military_maneuvers.png"
+    },
+    {
+        "id": 4,
+        "name": "Дополнительный инструктаж",
+        "external_id": "ADDITIONAL_BRIEFING",
+        "file": "fixtures/reserve_types/additional_briefing.png"
+    },
+    {
+        "id": 5,
+        "name": "Большегрузный транспорт",
+        "external_id": "HIGH_CAPACITY_TRANSPORT",
+        "file": "fixtures/reserve_types/high_capacity_transport.png"
+    },
+    {
+        "id": 6,
+        "name": "Реквизиция",
+        "external_id": "REQUISITION",
+        "file": "fixtures/reserve_types/requisition.png"
+    },
+    {
+        "id": 7,
+        "name": "Артобстрел",
+        "external_id": "ARTILLERY_STRIKE",
+        "file": "fixtures/reserve_types/artillery_strike.png"
+    },
+    {
+        "id": 8,
+        "name": "Воодушевление",
+        "external_id": "INSPIRATION",
+        "file": "fixtures/reserve_types/inspiration.png"
+    }
+]
