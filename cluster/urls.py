@@ -9,5 +9,8 @@ urlpatterns = [
     path('api/v1/core/', include('apps.core.api.v1.urls')),
     path('api/v1/directory/', include('apps.directory.api.v1.urls')),
     path('api/v1/marks/', include('apps.marks.api.v1.urls')),
-    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

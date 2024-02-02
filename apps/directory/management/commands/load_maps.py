@@ -7,9 +7,6 @@ from apps.directory.models import Map
 
 
 class Command(BaseCommand):
-    def add_arguments(self, parser):
-        parser.add_argument('--files-update', type=bool, default=False)
-
     def handle(self, *args, **options):
         fixture = 'fixtures/maps.json'
 
@@ -22,22 +19,15 @@ class Command(BaseCommand):
             raise CommandError('Fixture read error')
 
         for _map in data:
-            if options.get('files_update'):
-                file_path = _map['file']
-                with open(file_path, 'rb') as file:
-                    _map['file'] = ContentFile(file.read(), name=file_path.rsplit('/', maxsplit=1)[-1])
-            else:
-                del _map['file']
+            file_path = _map['file']
+            with open(file_path, 'rb') as file:
+                _map['file'] = ContentFile(file.read(), name=file_path.rsplit('/', maxsplit=1)[-1])
 
             maps.append(Map(**_map))
-
-        update_fields = ['name']
-        if options.get('files_update'):
-            update_fields.append('file')
 
         Map.objects.bulk_create(
             maps,
             update_conflicts=True,
-            update_fields=update_fields,
+            update_fields=['name', 'file'],
             unique_fields=['external_id'],
         )
