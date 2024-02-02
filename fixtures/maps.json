@@ -2,205 +2,205 @@
     {
         "id": 1,
         "name": "Карелия",
-        "external_id": "01_karelia_ctf",
-        "file": "fixtures/maps/01_karelia_ctf.jpg"
+        "external_id": "01_karelia",
+        "file": "fixtures/maps/01_karelia.jpg"
     },
     {
         "id": 2,
         "name": "Малиновка",
-        "external_id": "02_malinovka_ctf",
-        "file": "fixtures/maps/02_malinovka_ctf.jpg"
+        "external_id": "02_malinovka",
+        "file": "fixtures/maps/02_malinovka.jpg"
     },
     {
         "id": 3,
         "name": "Химмельсдорф",
-        "external_id": "04_himmelsdorf_ctf",
-        "file": "fixtures/maps/04_himmelsdorf_ctf.jpg"
+        "external_id": "04_himmelsdorf",
+        "file": "fixtures/maps/04_himmelsdorf.jpg"
     },
     {
         "id": 4,
         "name": "Прохоровка",
-        "external_id": "05_prohorovka_ctf",
-        "file": "fixtures/maps/05_prohorovka_ctf.jpg"
+        "external_id": "05_prohorovka",
+        "file": "fixtures/maps/05_prohorovka.jpg"
     },
     {
         "id": 5,
         "name": "Энск",
-        "external_id": "06_ensk_ctf",
-        "file": "fixtures/maps/06_ensk_ctf.jpg"
+        "external_id": "06_ensk",
+        "file": "fixtures/maps/06_ensk.jpg"
     },
     {
         "id": 6,
         "name": "Лассвиль",
-        "external_id": "07_lakeville_ctf",
-        "file": "fixtures/maps/07_lakeville_ctf.jpg"
+        "external_id": "07_lakeville",
+        "file": "fixtures/maps/07_lakeville.jpg"
     },
     {
         "id": 7,
         "name": "Руинберг",
-        "external_id": "08_ruinberg_ctf",
-        "file": "fixtures/maps/08_ruinberg_ctf.jpg"
+        "external_id": "08_ruinberg",
+        "file": "fixtures/maps/08_ruinberg.jpg"
     },
     {
         "id": 8,
         "name": "Оверлорд",
-        "external_id": "101_dday_ctf",
-        "file": "fixtures/maps/101_dday_ctf.jpg"
+        "external_id": "101_dday",
+        "file": "fixtures/maps/101_dday.jpg"
     },
     {
         "id": 9,
         "name": "Рудники",
-        "external_id": "10_hills_ctf",
-        "file": "fixtures/maps/10_hills_ctf.jpg"
+        "external_id": "10_hills",
+        "file": "fixtures/maps/10_hills.jpg"
     },
     {
         "id": 10,
         "name": "Париж",
-        "external_id": "112_eiffel_tower_ctf_ctf",
-        "file": "fixtures/maps/112_eiffel_tower_ctf_ctf.jpg"
+        "external_id": "112_eiffel_tower",
+        "file": "fixtures/maps/112_eiffel_tower.jpg"
     },
     {
         "id": 11,
         "name": "Промзона",
-        "external_id": "114_czech_ctf",
-        "file": "fixtures/maps/114_czech_ctf.jpg"
+        "external_id": "114_czech",
+        "file": "fixtures/maps/114_czech.jpg"
     },
     {
         "id": 12,
         "name": "Штиль",
-        "external_id": "115_sweden_ctf",
-        "file": "fixtures/maps/115_sweden_ctf.jpg"
+        "external_id": "115_sweden",
+        "file": "fixtures/maps/115_sweden.jpg"
     },
     {
         "id": 13,
         "name": "Мурованка",
-        "external_id": "11_murovanka_ctf",
-        "file": "fixtures/maps/11_murovanka_ctf.jpg"
+        "external_id": "11_murovanka",
+        "file": "fixtures/maps/11_murovanka.jpg"
     },
     {
         "id": 14,
         "name": "Эрленберг",
-        "external_id": "13_erlenberg_ctf",
-        "file": "fixtures/maps/13_erlenberg_ctf.jpg"
+        "external_id": "13_erlenberg",
+        "file": "fixtures/maps/13_erlenberg.jpg"
     },
     {
         "id": 15,
         "name": "Линия Зигфрида",
-        "external_id": "14_siegfried_line_ctf",
-        "file": "fixtures/maps/14_siegfried_line_ctf.jpg"
+        "external_id": "14_siegfried_line",
+        "file": "fixtures/maps/14_siegfried_line.jpg"
     },
     {
         "id": 16,
         "name": "Уайдпарк",
-        "external_id": "17_munchen_ctf",
-        "file": "fixtures/maps/17_munchen_ctf.jpg"
+        "external_id": "17_munchen",
+        "file": "fixtures/maps/17_munchen.jpg"
     },
     {
         "id": 17,
         "name": "Утес",
-        "external_id": "18_cliff_ctf",
-        "file": "fixtures/maps/18_cliff_ctf.jpg"
+        "external_id": "18_cliff",
+        "file": "fixtures/maps/18_cliff.jpg"
     },
     {
         "id": 18,
         "name": "Монастырь",
-        "external_id": "19_monastery_ctf",
-        "file": "fixtures/maps/19_monastery_ctf.jpg"
+        "external_id": "19_monastery",
+        "file": "fixtures/maps/19_monastery.jpg"
     },
     {
         "id": 19,
         "name": "Вестфилд",
-        "external_id": "23_westfeld_ctf",
-        "file": "fixtures/maps/23_westfeld_ctf.jpg"
+        "external_id": "23_westfeld",
+        "file": "fixtures/maps/23_westfeld.jpg"
     },
     {
         "id": 20,
         "name": "Песчаная река",
-        "external_id": "28_desert_ctf",
-        "file": "fixtures/maps/28_desert_ctf.jpg"
+        "external_id": "28_desert",
+        "file": "fixtures/maps/28_desert.jpg"
     },
     {
         "id": 21,
         "name": "Эль-Халлуф",
-        "external_id": "29_el_hallouf_ctf",
-        "file": "fixtures/maps/29_el_hallouf_ctf.jpg"
+        "external_id": "29_el_hallouf",
+        "file": "fixtures/maps/29_el_hallouf.jpg"
     },
     {
         "id": 22,
         "name": "Аэродром",
-        "external_id": "31_airfield_ctf",
-        "file": "fixtures/maps/31_airfield_ctf.jpg"
+        "external_id": "31_airfield",
+        "file": "fixtures/maps/31_airfield.jpg"
     },
     {
         "id": 23,
         "name": "Фьорды",
-        "external_id": "33_fjord_ctf",
-        "file": "fixtures/maps/33_fjord_ctf.jpg"
+        "external_id": "33_fjord",
+        "file": "fixtures/maps/33_fjord.jpg"
     },
     {
         "id": 24,
         "name": "Редшир",
-        "external_id": "34_redshire_ctf",
-        "file": "fixtures/maps/34_redshire_ctf.jpg"
+        "external_id": "34_redshire",
+        "file": "fixtures/maps/34_redshire.jpg"
     },
     {
         "id": 25,
         "name": "Степи",
-        "external_id": "35_steppes_ctf",
-        "file": "fixtures/maps/35_steppes_ctf.jpg"
+        "external_id": "35_steppes",
+        "file": "fixtures/maps/35_steppes.jpg"
     },
     {
         "id": 26,
         "name": "Рыбацкая бухта",
-        "external_id": "36_fishing_bay_ctf",
-        "file": "fixtures/maps/36_fishing_bay_ctf.jpg"
+        "external_id": "36_fishing_bay",
+        "file": "fixtures/maps/36_fishing_bay.jpg"
     },
     {
         "id": 27,
         "name": "Перевал",
-        "external_id": "37_caucasus_ctf",
-        "file": "fixtures/maps/37_caucasus_ctf.jpg"
+        "external_id": "37_caucasus",
+        "file": "fixtures/maps/37_caucasus.jpg"
     },
     {
         "id": 28,
         "name": "Линия Маннергейма",
-        "external_id": "38_mannerheim_line_ctf",
-        "file": "fixtures/maps/38_mannerheim_line_ctf.jpg"
+        "external_id": "38_mannerheim_line",
+        "file": "fixtures/maps/38_mannerheim_line.jpg"
     },
     {
         "id": 29,
         "name": "Лайв Окс",
-        "external_id": "44_north_america_ctf",
-        "file": "fixtures/maps/44_north_america_ctf.jpg"
+        "external_id": "44_north_america",
+        "file": "fixtures/maps/44_north_america.jpg"
     },
     {
         "id": 30,
         "name": "Хайвей",
-        "external_id": "45_north_america_ctf",
-        "file": "fixtures/maps/45_north_america_ctf.jpg"
+        "external_id": "45_north_america",
+        "file": "fixtures/maps/45_north_america.jpg"
     },
     {
         "id": 31,
         "name": "Тихий берег",
-        "external_id": "47_canada_a_ctf",
-        "file": "fixtures/maps/47_canada_a_ctf.jpg"
+        "external_id": "47_canada_a",
+        "file": "fixtures/maps/47_canada_a.jpg"
     },
     {
         "id": 32,
         "name": "Жемчужная река",
-        "external_id": "60_asia_miao_ctf",
-        "file": "fixtures/maps/60_asia_miao_ctf.jpg"
+        "external_id": "60_asia_miao",
+        "file": "fixtures/maps/60_asia_miao.jpg"
     },
     {
         "id": 33,
         "name": "Тундра",
-        "external_id": "63_tundra_ctf",
-        "file": "fixtures/maps/63_tundra_ctf.jpg"
+        "external_id": "63_tundra",
+        "file": "fixtures/maps/63_tundra.jpg"
     },
     {
         "id": 34,
         "name": "Студзянки",
-        "external_id": "99_poland_ctf",
-        "file": "fixtures/maps/99_poland_ctf.jpg"
+        "external_id": "99_poland",
+        "file": "fixtures/maps/99_poland.jpg"
     }
 ]
