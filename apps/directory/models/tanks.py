@@ -1,5 +1,6 @@
 from django.db import models
 
+from generic.storages import OverWriteStorage
 from mixins.models import DateTimeMixin, ExternalIDMixin
 
 
@@ -28,7 +29,7 @@ class Tank(DateTimeMixin, ExternalIDMixin):
     level = models.PositiveSmallIntegerField()
     type = models.CharField(max_length=10, choices=Type)
     nation = models.CharField(max_length=7, choices=Nation)
-    contour = models.URLField()
+    contour = models.ImageField(upload_to='tanks/', storage=OverWriteStorage())
 
     def __str__(self) -> str:
         return f'{self.name} ({self.level} lvl.)'
