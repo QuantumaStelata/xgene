@@ -21,7 +21,9 @@ class WargamingRequestService(RequestService):
     def post(cls, url: str, json: dict | None = None, headers: dict | None = None, max_retries: int = 1, **kwargs):
         params = kwargs.pop('params', {})
         params.setdefault('application_id', settings.APPLICATION_ID)
-        return super().post(url, json, headers, max_retries, params=params, **kwargs)
+        if isinstance(json, dict):
+            json.setdefault('application_id', settings.APPLICATION_ID)
+        return super().post(url, json, headers, max_retries, params=params, data=json, **kwargs)
 
     @classmethod
     def _post_process_response(cls, response: Response) -> dict | NoReturn:

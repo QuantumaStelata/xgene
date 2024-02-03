@@ -35,6 +35,7 @@ class User(DateTimeMixin, ExternalIDMixin, AbstractUser):
     }
 
     role = models.IntegerField(choices=Role, help_text='Роль')
+    access_token = models.CharField(max_length=40, blank=True)
 
     def __str__(self) -> str:
         return self.username

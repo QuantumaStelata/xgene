@@ -9,6 +9,10 @@ app = Celery('cluster')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.conf.beat_schedule = {
+    'update-users-access-tokens': {
+        'task': 'apps.core.tasks.core.update_users_access_tokens',
+        'schedule': crontab(minute=0, hour=0),
+    },
     'update-gun-marks': {
         'task': 'apps.marks.tasks.marks.update_gun_marks',
         'schedule': crontab(minute=0, hour=1),
