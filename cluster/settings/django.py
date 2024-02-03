@@ -20,7 +20,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'cacheops',
+    'drf_spectacular',
 
     'apps.directory',
     'apps.clan',
