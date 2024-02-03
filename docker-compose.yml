@@ -30,6 +30,16 @@ services:
     env_file:
       - ./.env
 
+  nginx:
+    build: ./DEV-etc/nginx
+    ports:
+      - 1337:80
+    volumes:
+      - ./static:/static
+      - ./media:/media
+    depends_on:
+      - web
+
   celery_worker:
     build: .
     entrypoint: celery -A cluster worker -l INFO --concurrency=1

@@ -9,7 +9,7 @@ from generic.utils import unix_to_datetime
 
 class ReserveService:
     @classmethod
-    def update_reserve(cls):
+    def update_reserves(cls):
         user = User.objects.exclude(access_token='').first()
 
         if not user:
@@ -58,3 +58,20 @@ class ReserveService:
             unique_fields=['type', 'level'],
         )
         Reserve.objects.filter(count__lte=0, active_till__isnull=True, activated_at__isnull=True).delete()
+
+    @classmethod
+    def activate_reserve(cls, user: User, reserve: Reserve) -> bool:
+        if not user.access_token:
+            return False
+
+        data = WargamingRequestService.post(
+            'wot/stronghold/activateclanreserve/',
+            json={
+                'clan_id': settings.CLAN_ID,
+                'access_token': user.access_token,
+                'reserve_level': reserve.level,
+                'reserve_type': reserve.type.external_id,
+            },
+        )
+
+        return data.get('status') == 'ok'
