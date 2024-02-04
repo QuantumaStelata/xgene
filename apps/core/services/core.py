@@ -39,13 +39,16 @@ class CoreService:
         User.objects.bulk_update(updated_users, fields=['access_token'])
 
     @classmethod
-    def update_user_access_token(cls, user: User, save: bool = True) -> User:
-        data = WargamingRequestService.post('wot/auth/prolongate/', json={'access_token': user.access_token})
+    def update_user_access_token(cls, user: User, save: bool = True, access_token: str | None = None) -> User:
+        data = WargamingRequestService.post(
+            'wot/auth/prolongate/',
+            json={'access_token': access_token or user.access_token},
+        )
 
         if data.get('status') == 'ok' and data.get('data', {}).get('account_id') == user.external_id:
             user.access_token = data['data']['access_token']
         else:
-            cls.delete_user_access_token(user, save=False)
+            return cls.delete_user_access_token(user, save=save)
 
         if save:
             user.save(update_fields=['access_token'])
@@ -55,6 +58,8 @@ class CoreService:
     @classmethod
     def delete_user_access_token(cls, user: User, save: bool = True) -> User:
         user.access_token = ''
+        user.auth_token.delete()
+
         if save:
             user.save(update_fields=['access_token'])
 
