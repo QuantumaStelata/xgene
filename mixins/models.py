@@ -22,7 +22,7 @@ class DateTimeMixin(models.Model):
         ordering = ['-created_at', '-modified_at']
 
 
-class AuthorDocumentABC(models.Model):
+class AuthorMixin(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,

@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'apps.clan',
     'apps.core',
     'apps.marks',
+    'apps.tactic',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'cluster.wsgi.application'
+ASGI_APPLICATION = 'cluster.asgi.application'
 
 DATABASES = {
     'default': env.db(),
@@ -82,21 +84,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-if DEBUG:
-    QUERYCOUNT = {
-        'THRESHOLDS': {
-            'MEDIUM': 50,
-            'HIGH': 200,
-            'MIN_TIME_TO_LOG': 0,
-            'MIN_QUERY_COUNT_TO_LOG': 0,
-        },
-        'IGNORE_REQUEST_PATTERNS': [],
-        'IGNORE_SQL_PATTERNS': [],
-        'DISPLAY_DUPLICATES': 5,
-        'RESPONSE_HEADER': 'X-DjangoQueryCount-Count',
-    }
-
-    MIDDLEWARE.append('querycount.middleware.QueryCountMiddleware')
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
