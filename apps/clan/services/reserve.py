@@ -74,4 +74,5 @@ class ReserveService:
             },
         )
 
+        cls.update_reserves()
         return data.get('status') == 'ok'

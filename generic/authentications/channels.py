@@ -1,5 +1,6 @@
 from urllib.parse import parse_qs
 
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from django.contrib.auth.models import AnonymousUser
 from rest_framework.authtoken.models import Token
 
@@ -32,3 +33,11 @@ class WebsocketTokenAuthMiddleware:
             return AnonymousUser()
 
         return token.user
+
+
+class AuthAsyncJsonWebsocketConsumer(AsyncJsonWebsocketConsumer):
+    async def connect(self):
+        self.user = self.scope.get('user')
+
+        if not self.user.is_authenticated:
+            await self.close()

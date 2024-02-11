@@ -33,6 +33,10 @@ app.conf.beat_schedule = {
         'task': 'apps.core.tasks.core.update_users',
         'schedule': crontab(minute='*/15'),
     },
+    'update-reserves': {
+        'task': 'apps.clan.tasks.reserve.update_reserves',
+        'schedule': crontab(minute='*/3'),
+    },
     'update-stronghold': {
         'task': 'apps.clan.tasks.stronghold.update_stronghold',
         'schedule': crontab(minute=0, hour='*/1'),
