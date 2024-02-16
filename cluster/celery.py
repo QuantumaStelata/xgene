@@ -25,6 +25,10 @@ app.conf.beat_schedule = {
         'task': 'apps.directory.tasks.tanks.update_tanks',
         'schedule': crontab(minute=0, hour=2),
     },
+    'update-users-stats': {
+        'task': 'apps.core.tasks.users.update_users_stats',
+        'schedule': crontab(minute=0, hour=3),
+    },
     'update-clan': {
         'task': 'apps.clan.tasks.clan.update_clan',
         'schedule': crontab(minute='*/15'),

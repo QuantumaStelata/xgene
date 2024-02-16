@@ -9,3 +9,7 @@ class UserFilter(filters.FilterSet):
     class Meta:
         model = User
         fields = ('role',)
+
+    ordering = filters.OrderingFilter(
+        fields=(('battles', 'battles'), ('wins_percent', 'wins_percent'), ('wn8', 'wn8')),
+    )
