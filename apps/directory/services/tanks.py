@@ -1,6 +1,7 @@
 import mimetypes
 
 import requests
+from django.conf import settings
 from django.core.files.base import ContentFile
 
 from apps.directory.models import Tank
@@ -11,7 +12,7 @@ class TankService:
     @classmethod
     def update_tanks(cls):
         tanks = []
-        data = WargamingRequestService.get('wot/encyclopedia/vehicles/')
+        data = WargamingRequestService.get('wot/encyclopedia/vehicles/', params={'language': settings.WG_API_LANGUAGE})
 
         for _, value in data['data'].items():
             contour_url = value['images']['contour_icon']
