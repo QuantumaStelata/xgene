@@ -9,11 +9,15 @@ from apps.core.services.core import CoreService
 
 class LoginService:
     @classmethod
-    def get_openid_url(cls):
+    def get_openid_url(cls, redirect_uri: str | None = None) -> str:
         host = settings.WG_API_HOST
+
+        if not redirect_uri:
+            redirect_uri = f'{settings.FRONT_DOMAIN}login'
+
         params = urlencode({
             'application_id': settings.APPLICATION_ID,
-            'redirect_uri': f'{settings.FRONT_DOMAIN}login',
+            'redirect_uri': redirect_uri,
         })
         return f'{host}wot/auth/login/?{params}'
 

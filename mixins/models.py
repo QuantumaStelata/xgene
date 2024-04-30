@@ -19,7 +19,7 @@ class DateTimeMixin(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ['-created_at', '-modified_at']
+        ordering = ('-created_at', '-modified_at')
 
 
 class AuthorMixin(models.Model):
@@ -73,7 +73,7 @@ class SoftDeletionMixin(models.Model):
 
 
 class ExternalIDMixin(models.Model):
-    external_id = models.IntegerField(unique=True)
+    external_id = models.BigIntegerField(unique=True)
 
     class Meta:
         abstract = True

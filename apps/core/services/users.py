@@ -85,6 +85,9 @@ class UserService:
 
                 tank_id = tank['tank_id']
 
+                if not wn8_data.get(tank_id):
+                    continue
+
                 exp_dmg += wn8_data[tank_id]['expDamage'] * tank[battle]['battles']
                 exp_spot += wn8_data[tank_id]['expSpot'] * tank[battle]['battles']
                 exp_frag += wn8_data[tank_id]['expFrag'] * tank[battle]['battles']

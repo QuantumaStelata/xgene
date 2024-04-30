@@ -1,0 +1,2 @@
+class TacticDataError(Exception):
+    pass
