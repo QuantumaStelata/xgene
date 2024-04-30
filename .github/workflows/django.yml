@@ -30,7 +30,7 @@ jobs:
 
     - name: echo
       run: |
-       echo ${{ env.MAIN }}
+       echo ${{ vars.MAIN }}
 
     - name: Run Tests
       run: |
