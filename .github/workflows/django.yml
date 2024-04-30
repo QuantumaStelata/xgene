@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  env_var: ${{ vars.MAIN }}
+
+
 jobs:
   build:
 
@@ -30,7 +34,7 @@ jobs:
 
     - name: echo
       run: |
-       echo ${{ vars.MAIN }}
+       echo $vars.MAIN
 
     - name: Run Tests
       run: |
