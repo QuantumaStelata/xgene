@@ -32,7 +32,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Env
-      run: echo "${{ vars.MAIN }}" >> $GITHUB_ENV
+      run: echo {${{ vars.MAIN }}} >> $GITHUB_ENV
     - name: Run Tests
       run: |
         python manage.py test
