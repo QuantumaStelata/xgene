@@ -32,7 +32,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Env
-      run: echo {${{ vars.MAIN }}} >> $GITHUB_ENV
+      env:
+        VARS_JSON: ${{ toJSON(vars) }}
+      run: |
+        echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
     - name: Run Tests
       run: |
         python manage.py test
