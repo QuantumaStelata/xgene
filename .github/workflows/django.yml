@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ "main" ]
 
-env:
-  env_var: ${{ vars.MAIN }}
+# env:
+#   env_var: ${{ vars.MAIN }}
 
 
 jobs:
@@ -33,8 +33,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: echo
-      run: |
-       echo $vars.MAIN
+      run: export $(grep -v '^#' ${{ vars.MAIN }} | xargs -d '\n')
 
     - name: Run Tests
       run: |
