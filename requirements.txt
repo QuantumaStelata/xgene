@@ -9,7 +9,9 @@ django-environ==0.11.2
 django-filter==23.5
 django-querycount==0.8.3
 djangorestframework==3.14.0
+drf-nested-routers==0.93.5
 drf-spectacular==0.27.1
+drf-writable-nested==0.7.0
 gunicorn==21.2.0
 pillow==10.2.0
 psycopg2==2.9.9
