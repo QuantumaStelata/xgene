@@ -5,4 +5,5 @@ from cluster.settings.contrib.swagger import *  # noqa: F401, F403
 from cluster.settings.contrib.poliroid import *  # noqa: F401, F403
 from cluster.settings.contrib.cacheops import *  # noqa: F401, F403
 from cluster.settings.contrib.cors import *  # noqa: F401, F403
+from cluster.settings.contrib.telegram import *  # noqa: F401, F403
 from cluster.settings.contrib.channels import *  # noqa: F401, F403

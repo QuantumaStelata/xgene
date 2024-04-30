@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.marks',
     'apps.tactic',
+    'apps.telegram',
 ]
 
 MIDDLEWARE = [
