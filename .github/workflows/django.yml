@@ -31,11 +31,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Env
+
+    - name: Set envs
       env:
         VARS_JSON: ${{ toJSON(vars) }}
+        SECRETS_JSON: ${{ toJSON(secrets) }}
       run: |
         echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
+        echo "$SECRETS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
+
     - name: Run Tests
       run: |
         python manage.py test
