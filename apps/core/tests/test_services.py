@@ -7,6 +7,7 @@ from apps.core.models import User
 from apps.core.services.core import CoreService
 
 
+
 @pytest.mark.django_db
 def test_update_users(faker, user_fixture):
     users_count = faker.random_int(2, 4)
