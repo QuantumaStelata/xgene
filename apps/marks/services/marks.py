@@ -35,7 +35,8 @@ class MarkService:
                     mark_100=tank['marks']['100'],
                 ),
             )
-        GunMark.objects.bulk_create(
+
+        return GunMark.objects.bulk_create(
             marks,
             update_conflicts=True,
             update_fields=[
@@ -66,7 +67,8 @@ class MarkService:
                     master=tank['mastery'][3],
                 ),
             )
-        Mastery.objects.bulk_create(
+
+        return Mastery.objects.bulk_create(
             masters,
             update_conflicts=True,
             update_fields=['class_3', 'class_2', 'class_1', 'master'],

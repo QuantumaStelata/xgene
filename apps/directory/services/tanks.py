@@ -33,7 +33,7 @@ class TankService:
                 ),
             )
 
-        Tank.objects.bulk_create(
+        return Tank.objects.bulk_create(
             tanks,
             update_conflicts=True,
             update_fields=['name', 'level', 'type', 'nation', 'contour'],

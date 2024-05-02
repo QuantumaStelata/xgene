@@ -2,7 +2,6 @@ import os
 
 import environ
 
-
 current_path = environ.Path(__file__) - 1
 site_root = current_path - 2
 

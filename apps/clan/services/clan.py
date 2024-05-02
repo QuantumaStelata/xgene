@@ -21,7 +21,7 @@ class ClanService:
         filename = str(clan['clan_id']) + extension
         emblem = ContentFile(response.content, name=filename)
 
-        Clan.objects.update_or_create(
+        clan, _ = Clan.objects.update_or_create(
             external_id=clan['clan_id'],
             defaults={
                 'tag': clan['tag'],
@@ -31,3 +31,4 @@ class ClanService:
                 'emblem': emblem,
             },
         )
+        return clan

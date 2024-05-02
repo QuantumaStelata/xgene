@@ -15,12 +15,13 @@ class User(DateTimeMixin, ExternalIDMixin, AbstractUser):
         EXECUTIVE_OFFICER = 2, 'Заместитель командующего'
         PERSONNEL_OFFICER = 3, 'Офицер штаба'
         COMBAT_OFFICER = 4, 'Командир подразделения'
-        QUARTERMASTER = 5, 'Офицер снабжения'
-        RECRUITMENT_OFFICER = 6, 'Офицер по кадрам'
-        JUNIOR_OFFICER = 7, 'Младший офицер'
-        PRIVATE = 8, 'Боец'
-        RECRUIT = 9, 'Новобранец'
-        RESERVIST = 10, 'Резервист'
+        INTELLIGENCE_OFFICER = 5, 'Офицер разведки'
+        QUARTERMASTER = 6, 'Офицер снабжения'
+        RECRUITMENT_OFFICER = 7, 'Офицер по кадрам'
+        JUNIOR_OFFICER = 8, 'Младший офицер'
+        PRIVATE = 9, 'Боец'
+        RECRUIT = 10, 'Новобранец'
+        RESERVIST = 11, 'Резервист'
 
     ROLE_MAP = {
         'commander': Role.COMMANDER,
@@ -28,6 +29,7 @@ class User(DateTimeMixin, ExternalIDMixin, AbstractUser):
         'personnel_officer': Role.PERSONNEL_OFFICER,
         'recruitment_officer': Role.RECRUITMENT_OFFICER,
         'combat_officer': Role.COMBAT_OFFICER,
+        'intelligence_officer': Role.INTELLIGENCE_OFFICER,
         'quartermaster': Role.QUARTERMASTER,
         'junior_officer': Role.JUNIOR_OFFICER,
         'private': Role.PRIVATE,

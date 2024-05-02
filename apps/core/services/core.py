@@ -27,6 +27,7 @@ class CoreService:
         )
 
         User.objects.exclude(external_id__in=[player.external_id for player in clan_players]).delete()
+        return clan_players
 
     @classmethod
     def update_users_access_tokens(cls):
@@ -58,7 +59,8 @@ class CoreService:
     @classmethod
     def delete_user_access_token(cls, user: User, save: bool = True) -> User:
         user.access_token = ''
-        user.auth_token.delete()
+        if hasattr(user, 'auth_token'):
+            user.auth_token.delete()
 
         if save:
             user.save(update_fields=['access_token'])
