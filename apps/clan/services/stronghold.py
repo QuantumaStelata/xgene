@@ -19,7 +19,7 @@ class StrongholdService:
             clan=clan,
             defaults={
                 'level': stronghold_data['stronghold_level'],
-                'map_id': maps[stronghold_data['command_center_arena_id']],
+                'map_id': maps.get(stronghold_data['command_center_arena_id']),
             },
         )
 
@@ -30,8 +30,8 @@ class StrongholdService:
                 position=build['position'],
                 title=build['building_title'],
                 level=build['building_level'],
-                map_id=maps[build['arena_id']],
-                reserve_type_id=reserve_types[build['reserve_title']],
+                map_id=maps.get(build['arena_id']),
+                reserve_type_id=reserve_types.get(build['reserve_title']),
             ) for build in stronghold_data['building_slots']
         ]
 

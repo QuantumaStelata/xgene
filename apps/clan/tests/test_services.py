@@ -3,9 +3,10 @@ from unittest.mock import patch
 import pytest
 from django.conf import settings
 
-from apps.clan.models import Reserve
+from apps.clan.models import Build, Reserve, Stronghold
 from apps.clan.services.clan import ClanService
 from apps.clan.services.reserve import ReserveService
+from apps.clan.services.stronghold import StrongholdService
 from apps.directory.models import ReserveType
 from apps.directory.services.reserve_types import ReserveTypeService
 
@@ -72,3 +73,61 @@ def test_update_reserves(faker, user_fixture):
     with patch('generic.services.requests.RequestService.get', return_value=return_value):
         ReserveService.update_reserves()
         assert reserves_count == Reserve.objects.all().count()
+
+
+@pytest.mark.django_db
+@patch('apps.clan.services.reserve.ReserveService.update_reserves')
+def test_success_activate_reserve(update_reserves, faker, user_fixture, reserve_fixture):
+    user = user_fixture(access_token=faker.md5())
+    reserve = reserve_fixture()
+
+    return_value = {'status': 'ok'}
+
+    with patch('generic.services.requests.RequestService.post', return_value=return_value):
+        is_activated = ReserveService.activate_reserve(user, reserve)
+        assert update_reserves.call_count == 1
+        assert is_activated
+
+
+@pytest.mark.django_db
+@patch('apps.clan.services.reserve.ReserveService.update_reserves')
+def test_fail_activate_reserve(update_reserves, user_fixture, reserve_fixture):
+    user = user_fixture()
+    reserve = reserve_fixture()
+
+    return_value = {'status': 'error'}
+
+    with patch('generic.services.requests.RequestService.post', return_value=return_value):
+        is_activated = ReserveService.activate_reserve(user, reserve)
+        assert update_reserves.call_count == 0
+        assert not is_activated
+
+
+@pytest.mark.django_db
+def test_update_stronghold(faker, clan_fixture):
+    clan_fixture()
+    build_count = faker.random_int(2, 4)
+    return_value = {
+        'data': {
+            str(settings.CLAN_ID): {
+                'clan_id': str(settings.CLAN_ID),
+                'stronghold_level': faker.random_int(1, 10),
+                'command_center_arena_id': faker.random_int(1, 10),
+                'building_slots': [
+                    {
+                        'direction': faker.random_elements(Build.Direction.values, unique=True, length=1)[0],
+                        'position': faker.random_elements(Build.Position.values, unique=True, length=1)[0],
+                        'building_title': faker.random_elements(Build.Title.values, unique=True, length=1)[0],
+                        'building_level': faker.random_int(1, 10),
+                        'arena_id': faker.random_int(1, 10),
+                        'reserve_title': faker.random_int(1, 10),
+                    } for _ in range(build_count)
+                ],
+            },
+        },
+    }
+
+    with patch('generic.services.requests.RequestService.get', return_value=return_value):
+        StrongholdService.update_stronghold()
+        assert Stronghold.objects.all().count() == 1
+        assert Build.objects.all().count() == build_count

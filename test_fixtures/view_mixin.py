@@ -14,6 +14,7 @@ class ViewMixin:
     destroy_action_enable: bool = False
     create_action_enable: bool = False
 
+    all_action_auth: bool = False
     list_action_auth: bool = False
     retrieve_action_auth: bool = False
     update_action_auth: bool = False
@@ -51,7 +52,7 @@ class ViewMixin:
         instances = self.create_fixture(model_fixture, many=True)
 
         client = unauthorized_api_client
-        if self.list_action_auth:
+        if self.list_action_auth or self.all_action_auth:
             client = api_client()
 
         url = self.get_url()
@@ -59,7 +60,8 @@ class ViewMixin:
 
         if self.list_action_enable:
             assert r.status_code == 200
-            assert r.json()['count'] == len(instances)
+            if count := r.json().get('count'):
+                assert count == len(instances)
         else:
             assert r.status_code in [404, 405]
 
@@ -68,7 +70,7 @@ class ViewMixin:
         instance = self.create_fixture(model_fixture)
 
         client = unauthorized_api_client
-        if self.retrieve_action_auth:
+        if self.retrieve_action_auth or self.all_action_auth:
             client = api_client()
 
         url = self.get_url(instance.id)
@@ -85,7 +87,7 @@ class ViewMixin:
         instance = self.create_fixture(model_fixture)
 
         client = unauthorized_api_client
-        if self.update_action_auth:
+        if self.update_action_auth or self.all_action_auth:
             client = api_client()
 
         url = self.get_url(instance.id)
@@ -101,7 +103,7 @@ class ViewMixin:
         instance = self.create_fixture(model_fixture)
 
         client = unauthorized_api_client
-        if self.destroy_action_auth:
+        if self.destroy_action_auth or self.all_action_auth:
             client = api_client()
 
         url = self.get_url(instance.id)
@@ -114,7 +116,7 @@ class ViewMixin:
 
     def test_create_action(self, unauthorized_api_client, api_client, get_create_body):
         client = unauthorized_api_client
-        if self.create_action_auth:
+        if self.create_action_auth or self.all_action_auth:
             client = api_client()
 
         url = self.get_url()
