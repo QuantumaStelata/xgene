@@ -40,5 +40,5 @@ def test_tank_service(faker):
     }
 
     with patch('generic.services.requests.RequestService.get', return_value=return_value):
-        tanks = TankService.update_tanks()
-        assert len(tanks) == Tank.objects.all().count()
+        TankService.update_tanks()
+        assert len(tank_ids) == Tank.objects.all().count()
