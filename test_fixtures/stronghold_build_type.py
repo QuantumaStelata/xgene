@@ -20,6 +20,7 @@ def stronghold_build_type_fixture():
 def all_stronghold_build_type_fixture():
     def wrap(**kwargs):
         kwargs.pop('external_id', None)
+        kwargs.pop('_quantity', None)
 
         stronghold_build_types = []
         for external_id in StrongholdBuildType.ExternalID:
