@@ -1,0 +1,50 @@
+[
+    {
+        "external_id": "Financial Unit",
+        "name": "Financial Unit",
+        "name_en": "Financial Unit",
+        "name_ru": "Финансовая часть"
+    },
+    {
+        "external_id": "Tankodrome",
+        "name": "Tankodrome",
+        "name_en": "Tankodrome",
+        "name_ru": "Танкодром"
+    },
+    {
+        "external_id": "Military School",
+        "name": "Military School",
+        "name_en": "Military School",
+        "name_ru": "Военное училище"
+    },
+    {
+        "external_id": "Training Unit",
+        "name": "Training Unit",
+        "name_en": "Training Unit",
+        "name_ru": "Учебная часть"
+    },
+    {
+        "external_id": "Transportation Unit",
+        "name": "Transportation Unit",
+        "name_en": "Transportation Unit",
+        "name_ru": "Автотранспортная часть"
+    },
+    {
+        "external_id": "Trophy Brigade",
+        "name": "Trophy Brigade",
+        "name_en": "Trophy Brigade",
+        "name_ru": "Трофейная бригата"
+    },
+    {
+        "external_id": "Artillery Battalion",
+        "name": "Artillery Battalion",
+        "name_en": "Artillery Battalion",
+        "name_ru": "Артиллерийский дивизион"
+    },
+    {
+        "external_id": "Logistical Service",
+        "name": "Logistical Service",
+        "name_en": "Logistical Service",
+        "name_ru": "Служба тыла"
+    }
+]
