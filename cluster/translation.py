@@ -1,6 +1,6 @@
 from modeltranslation.translator import TranslationOptions, register
 
-from apps.directory.models import StrongholdBuildType, Tank
+from apps.directory.models import ReserveType, StrongholdBuildType, Tank
 
 
 @register(Tank)
@@ -10,4 +10,9 @@ class TankTranslationOptions(TranslationOptions):
 
 @register(StrongholdBuildType)
 class StrongholdBuildTypeTranslationOptions(TranslationOptions):
+    fields = ('name',)
+
+
+@register(ReserveType)
+class ReserveTypeTranslationOptions(TranslationOptions):
     fields = ('name',)
