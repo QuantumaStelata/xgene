@@ -1,7 +1,7 @@
 from django.conf import settings
 
 from apps.clan.models import Build, Clan, Stronghold
-from apps.directory.models import Map, ReserveType
+from apps.directory.models import Map, ReserveType, StrongholdBuildType
 from generic.services.wargaming import WargamingRequestService
 
 
@@ -14,6 +14,7 @@ class StrongholdService:
         clan = Clan.objects.only('id').get(external_id=stronghold_data['clan_id'])
         maps = dict(Map.objects.values_list('external_id', 'id'))
         reserve_types = dict(ReserveType.objects.values_list('external_id', 'id'))
+        build_types = dict(StrongholdBuildType.objects.values_list('external_id', 'id'))
 
         stronghold, _ = Stronghold.objects.update_or_create(
             clan=clan,
@@ -28,7 +29,7 @@ class StrongholdService:
                 stronghold=stronghold,
                 direction=build['direction'],
                 position=build['position'],
-                title=build['building_title'],
+                type_id=build_types[build['building_title']],
                 level=build['building_level'],
                 map_id=maps.get(build['arena_id']),
                 reserve_type_id=reserve_types.get(build['reserve_title']),
@@ -38,6 +39,6 @@ class StrongholdService:
         Build.objects.bulk_create(
             builds,
             update_conflicts=True,
-            update_fields=['title', 'level', 'map', 'reserve_type'],
+            update_fields=['type', 'level', 'map', 'reserve_type'],
             unique_fields=['stronghold', 'direction', 'position'],
         )
