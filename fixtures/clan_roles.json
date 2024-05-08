@@ -1,0 +1,79 @@
+[
+    {
+        "id": 1,
+        "external_id": "commander",
+        "name": "Commander",
+        "name_en": "Commander",
+        "name_ru": "Командующий"
+    },
+    {
+        "id": 2,
+        "external_id": "executive_officer",
+        "name": "Executive officer",
+        "name_en": "Executive officer",
+        "name_ru": "Заместитель командующего"
+    },
+    {
+        "id": 3,
+        "external_id": "personnel_officer",
+        "name": "Personnel officer",
+        "name_en": "Personnel officer",
+        "name_ru": "Офицер штаба"
+    },
+    {
+        "id": 4,
+        "external_id": "combat_officer",
+        "name": "Combat officer",
+        "name_en": "Combat officer",
+        "name_ru": "Командир подразделения"
+    },
+    {
+        "id": 5,
+        "external_id": "intelligence_officer",
+        "name": "Intelligence officer",
+        "name_en": "Intelligence officer",
+        "name_ru": "Офицер разведки"
+    },
+    {
+        "id": 6,
+        "external_id": "quartermaster",
+        "name": "Quartermaster",
+        "name_en": "Quartermaster",
+        "name_ru": "Офицер снабжения"
+    },
+    {
+        "id": 7,
+        "external_id": "recruitment_officer",
+        "name": "Recruitment officer",
+        "name_en": "Recruitment officer",
+        "name_ru": "Офицер по кадрам"
+    },
+    {
+        "id": 8,
+        "external_id": "junior_officer",
+        "name": "Junior officer",
+        "name_en": "Junior officer",
+        "name_ru": "Младший офицер"
+    },
+    {
+        "id": 9,
+        "external_id": "private",
+        "name": "Private",
+        "name_en": "Private",
+        "name_ru": "Боец"
+    },
+    {
+        "id": 10,
+        "external_id": "recruit",
+        "name": "Recruit",
+        "name_en": "Recruit",
+        "name_ru": "Новобранец"
+    },
+    {
+        "id": 11,
+        "external_id": "reservist",
+        "name": "Reservist",
+        "name_en": "Reservist",
+        "name_ru": "Резервист"
+    }
+]

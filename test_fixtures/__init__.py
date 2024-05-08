@@ -6,6 +6,7 @@ from test_fixtures.map import *  # noqa: F403, F401
 from test_fixtures.mastery import *  # noqa: F403, F401
 from test_fixtures.reserve_type import *  # noqa: F403, F401
 from test_fixtures.reserve import *  # noqa: F403, F401
+from test_fixtures.role import *  # noqa: F403, F401
 from test_fixtures.stronghold import *  # noqa: F403, F401
 from test_fixtures.stronghold_build_type import *  # noqa: F403, F401
 from test_fixtures.tank import *  # noqa: F403, F401

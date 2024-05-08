@@ -1,15 +1,15 @@
 from rest_framework import permissions
 
-from apps.core.models import User
+from apps.directory.models import Role
 
 
 class RoomPermission(permissions.IsAuthenticated):
     def has_object_permission(self, request, view, obj):
         if request.method == 'DELETE' and (
             request.user != obj.author or
-            request.user.role not in (
-                User.Role.COMMANDER,
-                User.Role.EXECUTIVE_OFFICER,
+            request.user.role_id not in (
+                Role.PrimaryID.COMMANDER,
+                Role.PrimaryID.EXECUTIVE_OFFICER,
             )
         ):
             return False

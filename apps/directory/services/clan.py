@@ -1,12 +1,12 @@
 import json
 
-from apps.directory.models import StrongholdBuildType
+from apps.directory.models import Role
 
 
-class StrongholdBuildTypeService:
+class RoleService:
     @classmethod
-    def update_build_types(cls) -> list[StrongholdBuildType]:
-        fixture = 'fixtures/stronghold_build_types.json'
+    def update_roles(cls) -> list[Role]:
+        fixture = 'fixtures/clan_roles.json'
 
         build_types = []
         data = None
@@ -17,9 +17,9 @@ class StrongholdBuildTypeService:
             return []
 
         for build_type in data:
-            build_types.append(StrongholdBuildType(**build_type))
+            build_types.append(Role(**build_type))
 
-        return StrongholdBuildType.objects.bulk_create(
+        return Role.objects.bulk_create(
             build_types,
             update_conflicts=True,
             update_fields=['name', 'name_en', 'name_ru', 'external_id'],
