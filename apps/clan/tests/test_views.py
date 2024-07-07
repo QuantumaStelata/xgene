@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 from faker import Faker
 
-from apps.core.models import User
+from apps.directory.models import Role
 from test_fixtures.view_mixin import ViewMixin
 
 faker = Faker()
@@ -30,17 +30,21 @@ class TestReserveView(ViewMixin):
         ['user_kwargs', 'expected_response'],
         [
             (
-                {'access_token': faker.md5(), 'role': role},
-                role in (User.Role.COMMANDER, User.Role.EXECUTIVE_OFFICER),
-            ) for role in User.Role.values
+                {'access_token': faker.md5(), 'role_id': role_id},
+                role_id in (Role.PrimaryID.COMMANDER, Role.PrimaryID.EXECUTIVE_OFFICER),
+            ) for role_id in Role.PrimaryID.values
         ] + [
             (
-                {'access_token': '', 'role': role}, False,
-            ) for role in User.Role.values
+                {'access_token': '', 'role_id': role_id}, False,
+            ) for role_id in Role.PrimaryID.values
         ],
     )
     @patch('apps.clan.services.reserve.ReserveService.update_reserves')
-    def test_activate_action(self, mocked, user_fixture, reserve_fixture, api_client, user_kwargs, expected_response):
+    def test_activate_action(
+        self, mocked, user_fixture, all_role_fixture, reserve_fixture,
+        api_client, user_kwargs, expected_response,
+    ):
+        all_role_fixture()
         user = user_fixture(**user_kwargs)
         reserve = reserve_fixture()
         return_value = {'status': 'ok'}
@@ -59,16 +63,17 @@ class TestReserveView(ViewMixin):
         ['user_kwargs', 'expected_response'],
         [
             (
-                {'access_token': faker.md5(), 'role': role},
-                role in (User.Role.COMMANDER, User.Role.EXECUTIVE_OFFICER),
-            ) for role in User.Role.values
+                {'access_token': faker.md5(), 'role_id': role_id},
+                role_id in (Role.PrimaryID.COMMANDER, Role.PrimaryID.EXECUTIVE_OFFICER),
+            ) for role_id in Role.PrimaryID.values
         ] + [
             (
-                {'access_token': '', 'role': role}, False,
-            ) for role in User.Role.values
+                {'access_token': '', 'role_id': role_id}, False,
+            ) for role_id in Role.PrimaryID.values
         ],
     )
-    def test_can_activate_action(self, user_fixture, api_client, user_kwargs, expected_response):
+    def test_can_activate_action(self, user_fixture, all_role_fixture, api_client, user_kwargs, expected_response):
+        all_role_fixture()
         user = user_fixture(**user_kwargs)
         client = api_client(user)
         r = client.get('/api/v1/clan/reserves/can_activate/')

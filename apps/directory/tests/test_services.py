@@ -2,9 +2,10 @@ from unittest.mock import patch
 
 import pytest
 
-from apps.directory.models import Map, ReserveType, Tank
+from apps.directory.models import Map, ReserveType, StrongholdBuildType, Tank
 from apps.directory.services.maps import MapService
 from apps.directory.services.reserve_types import ReserveTypeService
+from apps.directory.services.stronghold import StrongholdBuildTypeService
 from apps.directory.services.tanks import TankService
 
 
@@ -18,6 +19,12 @@ def test_map_service():
 def test_reserve_type_service():
     reserve_types = ReserveTypeService.update_reserve_types()
     assert len(reserve_types) == ReserveType.objects.all().count()
+
+
+@pytest.mark.django_db
+def test_stronghold_service():
+    build_types = StrongholdBuildTypeService.update_build_types()
+    assert len(build_types) == StrongholdBuildType.objects.all().count()
 
 
 @pytest.mark.django_db
@@ -40,5 +47,5 @@ def test_tank_service(faker):
     }
 
     with patch('generic.services.requests.RequestService.get', return_value=return_value):
-        tanks = TankService.update_tanks()
-        assert len(tanks) == Tank.objects.all().count()
+        TankService.update_tanks()
+        assert len(tank_ids) == Tank.objects.all().count()

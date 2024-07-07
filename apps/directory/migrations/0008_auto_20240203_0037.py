@@ -4,8 +4,10 @@ from django.db import migrations
 
 
 def update_reserve_types(apps, schema_editor):
-    from apps.directory.services.reserve_types import ReserveTypeService
-    ReserveTypeService.update_reserve_types()
+    # Deprecated
+    # from apps.directory.services.reserve_types import ReserveTypeService
+    # ReserveTypeService.update_reserve_types()
+    pass
 
 
 class Migration(migrations.Migration):

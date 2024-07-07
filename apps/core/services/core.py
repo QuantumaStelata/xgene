@@ -1,6 +1,7 @@
 from django.conf import settings
 
 from apps.core.models import User
+from apps.directory.models import Role
 from generic.services.wargaming import WargamingRequestService
 
 
@@ -8,13 +9,14 @@ class CoreService:
     @classmethod
     def update_users(cls):
         players = []
+        roles = dict(Role.objects.values_list('external_id', 'id'))
         data = WargamingRequestService.get('wot/clans/info/', params={'clan_id': settings.CLAN_ID})
 
         for player in data['data'][str(settings.CLAN_ID)]['members']:
             players.append(
                 User(
                     username=player['account_name'],
-                    role=User.ROLE_MAP[player['role']],
+                    role_id=roles[player['role']],
                     external_id=player['account_id'],
                 ),
             )
@@ -22,7 +24,7 @@ class CoreService:
         clan_players = User.objects.bulk_create(
             players,
             update_conflicts=True,
-            update_fields=['username', 'role'],
+            update_fields=['username', 'role_id'],
             unique_fields=['external_id'],
         )
 

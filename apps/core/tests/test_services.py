@@ -8,7 +8,7 @@ from apps.core.services.core import CoreService
 
 
 @pytest.mark.django_db
-def test_update_users(faker, user_fixture):
+def test_update_users(faker, user_fixture, role_fixture):
     users_count = faker.random_int(2, 4)
     user_fixture()  # Additional user, shoud be removed in service
     return_value = {
@@ -17,7 +17,7 @@ def test_update_users(faker, user_fixture):
                 'members': [
                     {
                         'account_name': faker.name(),
-                        'role': faker.random_element(User.ROLE_MAP.keys()),
+                        'role': role_fixture().external_id,
                         'account_id': faker.random_int(1000, 10000),
                     } for _ in range(users_count)
                 ],

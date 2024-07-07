@@ -10,16 +10,6 @@ class Stronghold(DateTimeMixin):
 
 
 class Build(DateTimeMixin):
-    class Title(models.TextChoices):
-        FINANCIAL_UNIT = 'Financial Unit', 'Финансовая часть'
-        TANKODROME = 'Tankodrome', 'Танкодром'
-        MILITARY_SCHOOL = 'Military School', 'Военное училище'
-        TRAINING_UNIT = 'Training Unit', 'Учебная часть'
-        TRANSPORTATION_UNIT = 'Transportation Unit', 'Автотранспортная часть'
-        TROPHY_BRIGADE = 'Trophy Brigade', 'Трофейная бригата'
-        ARTILLERY_BATTALION = 'Artillery Battalion', 'Артиллерийский дивизион'
-        LOGISTICAL_SERVICE = 'Logistical Service', 'Служба тыла'
-
     class Direction(models.TextChoices):
         A = 'A'
         B = 'B'
@@ -31,7 +21,7 @@ class Build(DateTimeMixin):
         P2 = 2
 
     stronghold = models.ForeignKey('clan.Stronghold', on_delete=models.CASCADE, related_name='builds')
-    title = models.CharField(max_length=32, choices=Title)
+    type = models.ForeignKey('directory.StrongholdBuildType', on_delete=models.CASCADE, related_name='builds')
     direction = models.CharField(max_length=32, choices=Direction)
     position = models.PositiveSmallIntegerField(choices=Position)
     level = models.PositiveSmallIntegerField()
@@ -48,8 +38,8 @@ class Build(DateTimeMixin):
                 name='stronghold, direction and position unique constraint',
             ),
             models.UniqueConstraint(
-                fields=['stronghold', 'title'],
-                name='stronghold and title unique constraint',
+                fields=['stronghold', 'type'],
+                name='stronghold and type unique constraint',
             ),
             models.UniqueConstraint(
                 fields=['stronghold', 'reserve_type'],

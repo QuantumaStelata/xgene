@@ -2,17 +2,20 @@ from unittest.mock import patch
 
 import pytest
 from django.conf import settings
+from faker import Faker
 
 from apps.clan.models import Build, Reserve, Stronghold
 from apps.clan.services.clan import ClanService
 from apps.clan.services.reserve import ReserveService
 from apps.clan.services.stronghold import StrongholdService
-from apps.directory.models import ReserveType
+from apps.directory.models import ReserveType, StrongholdBuildType
 from apps.directory.services.reserve_types import ReserveTypeService
+
+faker = Faker()
 
 
 @pytest.mark.django_db
-def test_update_clan(faker):
+def test_update_clan():
     return_value = {
         'data': {
             str(settings.CLAN_ID): {
@@ -38,7 +41,7 @@ def test_update_clan(faker):
 
 
 @pytest.mark.django_db
-def test_update_reserves(faker, user_fixture):
+def test_update_reserves(user_fixture):
     user_fixture(access_token=faker.md5())
     ReserveTypeService.update_reserve_types()
 
@@ -77,7 +80,7 @@ def test_update_reserves(faker, user_fixture):
 
 @pytest.mark.django_db
 @patch('apps.clan.services.reserve.ReserveService.update_reserves')
-def test_success_activate_reserve(update_reserves, faker, user_fixture, reserve_fixture):
+def test_success_activate_reserve(update_reserves, user_fixture, reserve_fixture):
     user = user_fixture(access_token=faker.md5())
     reserve = reserve_fixture()
 
@@ -104,9 +107,10 @@ def test_fail_activate_reserve(update_reserves, user_fixture, reserve_fixture):
 
 
 @pytest.mark.django_db
-def test_update_stronghold(faker, clan_fixture):
+def test_update_stronghold(clan_fixture, all_stronghold_build_type_fixture):
     clan_fixture()
-    build_count = faker.random_int(2, 4)
+    all_stronghold_build_type_fixture()
+    build_count = 2
     return_value = {
         'data': {
             str(settings.CLAN_ID): {
@@ -115,9 +119,9 @@ def test_update_stronghold(faker, clan_fixture):
                 'command_center_arena_id': faker.random_int(1, 10),
                 'building_slots': [
                     {
-                        'direction': faker.random_elements(Build.Direction.values, unique=True, length=1)[0],
-                        'position': faker.random_elements(Build.Position.values, unique=True, length=1)[0],
-                        'building_title': faker.random_elements(Build.Title.values, unique=True, length=1)[0],
+                        'direction': faker.unique.random_element(tuple(Build.Direction.values)),
+                        'position': faker.unique.random_element(tuple(Build.Position.values)),
+                        'building_title': faker.unique.random_element(tuple(StrongholdBuildType.ExternalID.values)),
                         'building_level': faker.random_int(1, 10),
                         'arena_id': faker.random_int(1, 10),
                         'reserve_title': faker.random_int(1, 10),

@@ -2,11 +2,13 @@ from rest_framework.routers import SimpleRouter
 
 from apps.directory.api.v1.views.maps import MapViewSet
 from apps.directory.api.v1.views.reserve_types import ReserveTypeViewSet
+from apps.directory.api.v1.views.stronghold import StrongholdBuildTypeViewSet
 from apps.directory.api.v1.views.tanks import TankViewSet
 
 router = SimpleRouter()
 router.register('maps', MapViewSet)
 router.register('reserve_types', ReserveTypeViewSet)
+router.register('build_types', StrongholdBuildTypeViewSet)
 router.register('tanks', TankViewSet)
 
 urlpatterns = [

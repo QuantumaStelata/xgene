@@ -28,6 +28,6 @@ class ReserveTypeService:
         return ReserveType.objects.bulk_create(
             reserve_types,
             update_conflicts=True,
-            update_fields=['name', 'file'],
-            unique_fields=['external_id'],
+            update_fields=['name', 'name_en', 'name_ru', 'file', 'external_id'],
+            unique_fields=['id'],
         )

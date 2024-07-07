@@ -4,8 +4,10 @@ from django.db import migrations
 
 
 def update_maps(apps, schema_editor):
-    from apps.directory.services.maps import MapService
-    MapService.update_maps()
+    # Deprecated
+    # from apps.directory.services.maps import MapService
+    # MapService.update_maps()
+    pass
 
 
 class Migration(migrations.Migration):
