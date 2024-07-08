@@ -10,18 +10,17 @@ class ReserveSchedulerViewSet(viewsets.ModelViewSet):
         disposable=False,
         schedulers__isnull=False,
     ).distinct()
+    reserve_scheduler_queryset = ReserveScheduler.objects.all()
     serializer_class = ReserveSerializer
-    create_serializer_class = ReserveSchedulerSerializer
+    reserve_scheduler_serializer_class = ReserveSchedulerSerializer
     permission_classes = (ReserveSchedulerPermission,)
 
     def get_serializer_class(self):
-        if self.action == 'create':
-            return self.create_serializer_class
-        return super().get_serializer_class()
+        if self.action == 'list':
+            return super().get_serializer_class()
+        return self.reserve_scheduler_serializer_class
 
     def get_queryset(self):
-        if self.action == 'destroy':
-            return ReserveScheduler.objects.all()
-        from apps.clan.services.reserve import ReserveService
-        ReserveService.activate_schedule_reserves()
-        return super().get_queryset()
+        if self.action == 'list':
+            return super().get_queryset()
+        return self.reserve_scheduler_queryset

@@ -81,6 +81,51 @@ class TestReserveView(ViewMixin):
 
 
 @pytest.mark.django_db
+class TestReserveSchedulerView(ViewMixin):
+    url = '/api/v1/clan/reserve_schedulers/'
+    model_fixture_name = 'reserve_scheduler_fixture'
+    list_action_enable = True
+    retrieve_action_enable = True
+    update_action_enable = True
+    destroy_action_enable = True
+    create_action_enable = True
+    all_action_auth = True
+
+    @pytest.fixture
+    def get_user_for_requests(self, all_role_fixture, user_fixture):
+        def wrap(action):
+            all_role_fixture()
+            return user_fixture(role_id=Role.PrimaryID.EXECUTIVE_OFFICER, access_token=faker.md5())
+        return wrap
+
+    @pytest.fixture
+    def get_create_body(self, reserve_fixture):
+        def wrap():
+            reserve = reserve_fixture()
+            return {
+                'reserve': reserve.id,
+                'day': faker.random_int(0, 6),
+                'time': faker.date_time().time().isoformat(),
+            }
+        return wrap
+
+    @pytest.fixture
+    def get_update_body(self):
+        def wrap():
+            return {
+                'day': faker.random_int(0, 6),
+                'time': faker.date_time().time().isoformat(),
+            }
+        return wrap
+
+    def assert_list_action(self, response, instances):
+        assert response.status_code == 200
+        results = response.json().get('results', [])
+        count = sum(len(i.get('schedulers', [])) for i in results)
+        assert count == len(instances)
+
+
+@pytest.mark.django_db
 class TestStrongholdView(ViewMixin):
     url = '/api/v1/clan/stronghold/'
     model_fixture_name = 'stronghold_fixture'

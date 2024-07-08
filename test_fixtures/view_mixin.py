@@ -33,6 +33,12 @@ class ViewMixin:
             return {}
         return wrap
 
+    @pytest.fixture
+    def get_user_for_requests(self):
+        def wrap(action):
+            return
+        return wrap
+
     def get_url(self, instance_id=None):
         if instance_id:
             return f'{self.url}{instance_id}/'
@@ -47,82 +53,97 @@ class ViewMixin:
 
         return model_fixture()
 
-    def test_list_action(self, request, unauthorized_api_client, api_client):
+    def test_list_action(self, request, unauthorized_api_client, api_client, get_user_for_requests):
         model_fixture = request.getfixturevalue(self.get_model_fixture_name())
         instances = self.create_fixture(model_fixture, many=True)
 
         client = unauthorized_api_client
         if self.list_action_auth or self.all_action_auth:
-            client = api_client()
+            auth_user = get_user_for_requests('list')
+            client = api_client(auth_user=auth_user)
 
         url = self.get_url()
         r = client.get(url)
+        self.assert_list_action(r, instances)
 
+    def assert_list_action(self, response, instances):
         if self.list_action_enable:
-            assert r.status_code == 200
-            if count := r.json().get('count'):
+            assert response.status_code == 200
+            if count := response.json().get('count'):
                 assert count == len(instances)
         else:
-            assert r.status_code in [404, 405]
+            assert response.status_code in [404, 405]
 
-    def test_retrieve_action(self, request, unauthorized_api_client, api_client):
+    def test_retrieve_action(self, request, unauthorized_api_client, api_client, get_user_for_requests):
         model_fixture = request.getfixturevalue(self.get_model_fixture_name())
         instance = self.create_fixture(model_fixture)
 
         client = unauthorized_api_client
         if self.retrieve_action_auth or self.all_action_auth:
-            client = api_client()
+            auth_user = get_user_for_requests('retrieve')
+            client = api_client(auth_user=auth_user)
 
         url = self.get_url(instance.id)
         r = client.get(url)
+        self.assert_retrieve_action(r, instance)
 
+    def assert_retrieve_action(self, response, instance):
         if self.retrieve_action_enable:
-            assert r.status_code == 200
-            assert r.json()['id'] == instance.id
+            assert response.status_code == 200
+            assert response.json()['id'] == instance.id
         else:
-            assert r.status_code in [404, 405]
+            assert response.status_code in [404, 405]
 
-    def test_update_action(self, request, unauthorized_api_client, api_client, get_update_body):
+    def test_update_action(self, request, unauthorized_api_client, api_client, get_update_body, get_user_for_requests):
         model_fixture = request.getfixturevalue(self.get_model_fixture_name())
         instance = self.create_fixture(model_fixture)
 
         client = unauthorized_api_client
         if self.update_action_auth or self.all_action_auth:
-            client = api_client()
+            auth_user = get_user_for_requests('update')
+            client = api_client(auth_user=auth_user)
 
         url = self.get_url(instance.id)
         r = client.patch(url, data=get_update_body())
+        self.assert_update_action(r)
 
+    def assert_update_action(self, response):
         if self.update_action_enable:
-            assert r.status_code == 200
+            assert response.status_code == 200
         else:
-            assert r.status_code in [404, 405]
+            assert response.status_code in [404, 405]
 
-    def test_destroy_action(self, request, unauthorized_api_client, api_client):
+    def test_destroy_action(self, request, unauthorized_api_client, api_client, get_user_for_requests):
         model_fixture = request.getfixturevalue(self.get_model_fixture_name())
         instance = self.create_fixture(model_fixture)
 
         client = unauthorized_api_client
         if self.destroy_action_auth or self.all_action_auth:
-            client = api_client()
+            auth_user = get_user_for_requests('destroy')
+            client = api_client(auth_user=auth_user)
 
         url = self.get_url(instance.id)
         r = client.delete(url)
+        self.assert_destroy_action(r)
 
+    def assert_destroy_action(self, response):
         if self.destroy_action_enable:
-            assert r.status_code == 204
+            assert response.status_code == 204
         else:
-            assert r.status_code in [404, 405]
+            assert response.status_code in [404, 405]
 
-    def test_create_action(self, unauthorized_api_client, api_client, get_create_body):
+    def test_create_action(self, unauthorized_api_client, api_client, get_create_body, get_user_for_requests):
         client = unauthorized_api_client
         if self.create_action_auth or self.all_action_auth:
-            client = api_client()
+            auth_user = get_user_for_requests('create')
+            client = api_client(auth_user=auth_user)
 
         url = self.get_url()
         r = client.post(url, data=get_create_body())
+        self.assert_create_action(r)
 
+    def assert_create_action(self, response):
         if self.create_action_enable:
-            assert r.status_code == 201
+            assert response.status_code == 201
         else:
-            assert r.status_code in [404, 405]
+            assert response.status_code in [404, 405]
