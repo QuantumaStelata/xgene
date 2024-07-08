@@ -1,6 +1,6 @@
 from django.db import models
 
-from mixins.models import DateTimeMixin
+from mixins.models import AuthorMixin, DateTimeMixin
 
 
 class Reserve(DateTimeMixin):
@@ -23,3 +23,23 @@ class Reserve(DateTimeMixin):
                 name='type and level unique constraint',
             ),
         ]
+
+
+class ReserveScheduler(AuthorMixin, DateTimeMixin):
+    class Day(models.IntegerChoices):
+        MONDAY = 0
+        TUESDAY = 1
+        WEDNESDAY = 2
+        THURSDAY = 3
+        FRIDAY = 4
+        SATURDAY = 5
+        SUNDAY = 6
+
+    reserve = models.ForeignKey(
+        'clan.Reserve',
+        on_delete=models.CASCADE,
+        related_name='schedulers',
+        limit_choices_to={'disposable': False},
+    )
+    day = models.PositiveSmallIntegerField(choices=Day)
+    time = models.TimeField()

@@ -41,6 +41,10 @@ app.conf.beat_schedule = {
         'task': 'apps.clan.tasks.reserve.update_reserves',
         'schedule': crontab(minute='*/3'),
     },
+    'activate-schedule-reserves': {
+        'task': 'apps.clan.tasks.reserve.activate_schedule_reserves',
+        'schedule': crontab(minute='*/1'),
+    },
     'update-stronghold': {
         'task': 'apps.clan.tasks.stronghold.update_stronghold',
         'schedule': crontab(minute=0, hour='*/1'),

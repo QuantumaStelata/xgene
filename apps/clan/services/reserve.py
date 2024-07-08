@@ -1,8 +1,11 @@
-from django.conf import settings
+from datetime import timedelta
 
-from apps.clan.models import Reserve
+from django.conf import settings
+from django.utils import timezone
+
+from apps.clan.models import Reserve, ReserveScheduler
 from apps.core.models import User
-from apps.directory.models import ReserveType
+from apps.directory.models import ReserveType, Role
 from generic.services.wargaming import WargamingRequestService
 from generic.utils import unix_to_datetime
 
@@ -60,8 +63,8 @@ class ReserveService:
         Reserve.objects.filter(count__lte=0, active_till__isnull=True, activated_at__isnull=True).delete()
 
     @classmethod
-    def activate_reserve(cls, user: User, reserve: Reserve) -> bool:
-        if not user.access_token:
+    def activate_reserve(cls, user: User, reserve: Reserve, update_after_activate: bool = True) -> bool:
+        if not user.access_token or reserve.disposable:
             return False
 
         data = WargamingRequestService.post(
@@ -74,5 +77,29 @@ class ReserveService:
             },
         )
 
-        cls.update_reserves()
+        if update_after_activate:
+            cls.update_reserves()
         return data.get('status') == 'ok'
+
+    @classmethod
+    def activate_schedule_reserves(cls):
+        user = User.objects.filter(
+            role_id__in=(Role.PrimaryID.COMMANDER, Role.PrimaryID.EXECUTIVE_OFFICER, Role.PrimaryID.PERSONNEL_OFFICER),
+        ).exclude(access_token='').first()
+
+        if not user:
+            return
+
+        now = timezone.now()
+        day = now.weekday()
+        start_time = (now - timedelta(seconds=30)).time()
+        end_time = (now + timedelta(seconds=30)).time()
+        activated = []
+
+        schedule = ReserveScheduler.objects.filter(day=day, time__range=(start_time, end_time))
+        for reserve_schedule in schedule:
+            activated.append(
+                cls.activate_reserve(user=user, reserve=reserve_schedule.reserve, update_after_activate=False),
+            )
+        if any(activated):
+            cls.update_reserves()
