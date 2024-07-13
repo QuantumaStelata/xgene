@@ -10,3 +10,4 @@ class MapViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
     serializer_class = MapSerializer
     permission_classes = (permissions.AllowAny,)
     filterset_class = MapFilter
+    pagination_class = None

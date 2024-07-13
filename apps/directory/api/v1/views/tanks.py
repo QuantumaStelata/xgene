@@ -10,3 +10,4 @@ class TankViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gen
     serializer_class = TankSerializer
     permission_classes = (permissions.AllowAny,)
     filterset_class = TankFilter
+    pagination_class = None

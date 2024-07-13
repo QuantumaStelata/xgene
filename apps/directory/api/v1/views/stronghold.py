@@ -8,3 +8,4 @@ class StrongholdBuildTypeViewSet(mixins.ListModelMixin, viewsets.GenericViewSet)
     queryset = StrongholdBuildType.objects.all()
     serializer_class = StrongholdBuildTypeSerializer
     permission_classes = (permissions.AllowAny,)
+    pagination_class = None
