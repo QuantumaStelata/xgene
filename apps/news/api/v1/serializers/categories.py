@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from apps.news.models import NewCategory
+from apps.news.models import Category
 
 
-class NewCategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = NewCategory
+        model = Category
         fields = ('id', 'name')

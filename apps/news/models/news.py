@@ -5,7 +5,7 @@ from mixins.models import DateTimeMixin, ExternalStrIDMixin
 
 
 class New(DateTimeMixin, ExternalStrIDMixin):
-    category = models.ForeignKey('news.NewCategory', on_delete=models.CASCADE, related_name='news')
+    category = models.ForeignKey('news.Category', on_delete=models.CASCADE, related_name='news')
     title = models.TextField()
     description = models.TextField()
     image = models.ImageField(upload_to='news/', storage=OverWriteStorage())

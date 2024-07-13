@@ -1,11 +1,11 @@
 from rest_framework import permissions, viewsets
 
-from apps.news.api.v1.serializers.categories import NewCategorySerializer
-from apps.news.models import NewCategory
+from apps.news.api.v1.serializers.categories import CategorySerializer
+from apps.news.models import Category
 
 
-class NewCategoryViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = NewCategory.objects.all()
-    serializer_class = NewCategorySerializer
+class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = None

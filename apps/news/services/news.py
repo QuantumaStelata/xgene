@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 from rss_parser import RSSParser
 
-from apps.news.models import New, NewCategory
+from apps.news.models import Category, New
 
 
 class NewService:
@@ -32,7 +32,7 @@ class NewService:
             if not external_id:
                 continue
 
-            category, _ = NewCategory.objects.get_or_create(name=item.category.content)
+            category, _ = Category.objects.get_or_create(name=item.category.content)
             image_url = item.content.enclosure.attributes['url']
             image_response = requests.get(image_url)
             content_type = image_response.headers['Content-Type']
@@ -101,7 +101,7 @@ class NewService:
                 }
 
                 news.append(New(id=new_id, **new_data))
-                categories.append(NewCategory(id=category_id, **category_data))
+                categories.append(Category(id=category_id, **category_data))
 
             New.objects.bulk_update(news, fields=new_data.keys())
-            NewCategory.objects.bulk_update(categories, fields=category_data.keys())
+            Category.objects.bulk_update(categories, fields=category_data.keys())
