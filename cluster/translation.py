@@ -1,6 +1,7 @@
 from modeltranslation.translator import TranslationOptions, register
 
 from apps.directory.models import Map, ReserveType, Role, StrongholdBuildType, Tank
+from apps.news.models import New, NewCategory
 
 
 @register(Tank)
@@ -25,4 +26,14 @@ class RoleTranslationOptions(TranslationOptions):
 
 @register(Map)
 class MapTranslationOptions(TranslationOptions):
+    fields = ('name',)
+
+
+@register(New)
+class NewTranslationOptions(TranslationOptions):
+    fields = ('title', 'description', 'link')
+
+
+@register(NewCategory)
+class NewCategoryTranslationOptions(TranslationOptions):
     fields = ('name',)

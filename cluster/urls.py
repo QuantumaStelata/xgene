@@ -14,6 +14,7 @@ urlpatterns = [
     path('api/v1/directory/', include('apps.directory.api.v1.urls')),
     path('api/v1/marks/', include('apps.marks.api.v1.urls')),
     path('api/v1/tactic/', include('apps.tactic.api.v1.urls')),
+    path('api/v1/news/', include('apps.news.api.v1.urls')),
 ]
 
 if settings.DEBUG:
