@@ -6,7 +6,7 @@ from apps.clan.models import Stronghold
 
 
 class StrongholdViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-    queryset = Stronghold.objects.all()
+    queryset = Stronghold.objects.prefetch_related('builds').all()
     serializer_class = StrongholdSerializer
     permission_classes = (permissions.AllowAny,)
     lookup_field = 'clan__external_id'
