@@ -4,6 +4,9 @@ from test_fixtures.clan import *  # noqa: F403, F401
 from test_fixtures.gun_mark import *  # noqa: F403, F401
 from test_fixtures.map import *  # noqa: F403, F401
 from test_fixtures.mastery import *  # noqa: F403, F401
+from test_fixtures.new_category import *  # noqa: F403, F401
+from test_fixtures.new_comment import *  # noqa: F403, F401
+from test_fixtures.new import *  # noqa: F403, F401
 from test_fixtures.reserve_type import *  # noqa: F403, F401
 from test_fixtures.reserve import *  # noqa: F403, F401
 from test_fixtures.role import *  # noqa: F403, F401
