@@ -69,8 +69,12 @@ class ViewMixin:
     def assert_list_action(self, response, instances):
         if self.list_action_enable:
             assert response.status_code == 200
-            if count := response.json().get('count'):
-                assert count == len(instances)
+            data = response.json()
+            if isinstance(data, list):
+                assert len(data) == len(instances)
+            elif isinstance(data, dict):
+                if count := response.json().get('count'):
+                    assert count == len(instances)
         else:
             assert response.status_code in [404, 405]
 
