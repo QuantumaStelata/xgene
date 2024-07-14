@@ -19,14 +19,21 @@ class NewService:
         return f'{settings.WG_HOST}{language}/rss/news/'
 
     @classmethod
-    def update_news(cls, with_translations: bool = True):
-        url = cls.get_rss_url()
+    def get_data(cls, url: str) -> str | None:
         response = requests.get(url)
         if not response.ok:
             return
+        return response.content.decode('utf-8')
+
+    @classmethod
+    def update_news(cls, with_translations: bool = True):
+        url = cls.get_rss_url()
+        data = cls.get_data(url)
+        if not data:
+            return
 
         news = []
-        rss = RSSParser.parse(response.content.decode('utf-8'))
+        rss = RSSParser.parse(data)
         for item in rss.channel.items:
             external_id = item.link.content[:-1].split('/')[-1]
             if not external_id:
@@ -71,13 +78,13 @@ class NewService:
 
         for language in settings.MODELTRANSLATION_LANGUAGES:
             url = cls.get_rss_url(language=language)
-            response = requests.get(url)
-            if not response.ok:
+            data = cls.get_data(url)
+            if not data:
                 continue
 
             news = []
             categories = []
-            rss = RSSParser.parse(response.content.decode('utf-8'))
+            rss = RSSParser.parse(data)
             for item in rss.channel.items:
                 external_id = item.link.content[:-1].split('/')[-1]
                 if not external_id:
