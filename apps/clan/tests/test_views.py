@@ -93,7 +93,7 @@ class TestReserveSchedulerView(ViewMixin):
 
     @pytest.fixture
     def get_user_for_requests(self, all_role_fixture, user_fixture):
-        def wrap(action):
+        def wrap(action, instance=None):
             all_role_fixture()
             return user_fixture(role_id=Role.PrimaryID.EXECUTIVE_OFFICER, access_token=faker.md5())
         return wrap

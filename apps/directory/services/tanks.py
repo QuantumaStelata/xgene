@@ -10,7 +10,7 @@ from generic.services.wargaming import WargamingRequestService
 
 class TankService:
     @classmethod
-    def update_tanks(cls, with_translations=True):
+    def update_tanks(cls, with_translations: bool = True):
         tanks = []
 
         data = WargamingRequestService.get(

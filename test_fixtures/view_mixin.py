@@ -35,13 +35,13 @@ class ViewMixin:
 
     @pytest.fixture
     def get_user_for_requests(self):
-        def wrap(action):
+        def wrap(action, instance=None):
             return
         return wrap
 
-    def get_url(self, instance_id=None):
-        if instance_id:
-            return f'{self.url}{instance_id}/'
+    def get_url(self, request, instance=None):
+        if instance:
+            return f'{self.url}{instance.id}/'
         return self.url
 
     def get_model_fixture_name(self):
@@ -62,15 +62,19 @@ class ViewMixin:
             auth_user = get_user_for_requests('list')
             client = api_client(auth_user=auth_user)
 
-        url = self.get_url()
+        url = self.get_url(request)
         r = client.get(url)
         self.assert_list_action(r, instances)
 
     def assert_list_action(self, response, instances):
         if self.list_action_enable:
             assert response.status_code == 200
-            if count := response.json().get('count'):
-                assert count == len(instances)
+            data = response.json()
+            if isinstance(data, list):
+                assert len(data) == len(instances)
+            elif isinstance(data, dict):
+                if count := response.json().get('count'):
+                    assert count == len(instances)
         else:
             assert response.status_code in [404, 405]
 
@@ -80,10 +84,10 @@ class ViewMixin:
 
         client = unauthorized_api_client
         if self.retrieve_action_auth or self.all_action_auth:
-            auth_user = get_user_for_requests('retrieve')
+            auth_user = get_user_for_requests('retrieve', instance)
             client = api_client(auth_user=auth_user)
 
-        url = self.get_url(instance.id)
+        url = self.get_url(request, instance)
         r = client.get(url)
         self.assert_retrieve_action(r, instance)
 
@@ -100,10 +104,10 @@ class ViewMixin:
 
         client = unauthorized_api_client
         if self.update_action_auth or self.all_action_auth:
-            auth_user = get_user_for_requests('update')
+            auth_user = get_user_for_requests('update', instance)
             client = api_client(auth_user=auth_user)
 
-        url = self.get_url(instance.id)
+        url = self.get_url(request, instance)
         r = client.patch(url, data=get_update_body())
         self.assert_update_action(r)
 
@@ -119,10 +123,10 @@ class ViewMixin:
 
         client = unauthorized_api_client
         if self.destroy_action_auth or self.all_action_auth:
-            auth_user = get_user_for_requests('destroy')
+            auth_user = get_user_for_requests('destroy', instance)
             client = api_client(auth_user=auth_user)
 
-        url = self.get_url(instance.id)
+        url = self.get_url(request, instance)
         r = client.delete(url)
         self.assert_destroy_action(r)
 
@@ -132,13 +136,13 @@ class ViewMixin:
         else:
             assert response.status_code in [404, 405]
 
-    def test_create_action(self, unauthorized_api_client, api_client, get_create_body, get_user_for_requests):
+    def test_create_action(self, request, unauthorized_api_client, api_client, get_create_body, get_user_for_requests):
         client = unauthorized_api_client
         if self.create_action_auth or self.all_action_auth:
             auth_user = get_user_for_requests('create')
             client = api_client(auth_user=auth_user)
 
-        url = self.get_url()
+        url = self.get_url(request)
         r = client.post(url, data=get_create_body())
         self.assert_create_action(r)
 

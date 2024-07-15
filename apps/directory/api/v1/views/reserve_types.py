@@ -8,3 +8,4 @@ class ReserveTypeViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = ReserveType.objects.all()
     serializer_class = ReserveTypeSerializer
     permission_classes = (permissions.AllowAny,)
+    pagination_class = None
