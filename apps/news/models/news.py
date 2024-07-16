@@ -10,7 +10,8 @@ class New(DateTimeMixin, ExternalStrIDMixin):
     description = models.TextField()
     image = models.ImageField(upload_to='news/', storage=OverWriteStorage())
     link = models.URLField()
-    pub_date = models.DateTimeField()
+    publicated_at = models.DateTimeField()
+    viewers = models.ManyToManyField('core.User')
 
     class Meta:
-        ordering = ('-pub_date',)
+        ordering = ('-publicated_at',)

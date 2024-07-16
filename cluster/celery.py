@@ -49,6 +49,10 @@ app.conf.beat_schedule = {
         'task': 'apps.clan.tasks.stronghold.update_stronghold',
         'schedule': crontab(minute=0, hour='*/1'),
     },
+    'update-news': {
+        'task': 'apps.news.tasks.news.update_news',
+        'schedule': crontab(minute=0, hour='*/3'),
+    },
 }
 
 app.autodiscover_tasks()

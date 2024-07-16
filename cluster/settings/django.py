@@ -112,3 +112,7 @@ CACHES = {
         'LOCATION': REDIS_URL + '/2',
     },
 }
+
+if DEBUG:
+    MIDDLEWARE.append('query_counter.middleware.DjangoQueryCounterMiddleware')
+    DQC_PRINT_ALL_QUERIES = True

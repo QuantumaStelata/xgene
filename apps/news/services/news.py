@@ -7,6 +7,7 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 from rss_parser import RSSParser
 
+from apps.core.models import User
 from apps.news.models import Category, New
 
 
@@ -55,7 +56,7 @@ class NewService:
                     description=item.description.content,
                     image=image,
                     link=item.link.content,
-                    pub_date=datetime.strptime(
+                    publicated_at=datetime.strptime(
                         item.pub_date.content, '%a, %d %b %Y %H:%M:%S %Z',
                     ).replace(tzinfo=pytz.utc),
                 ),
@@ -64,7 +65,7 @@ class NewService:
         New.objects.bulk_create(
             news,
             update_conflicts=True,
-            update_fields=['category', 'title', 'description', 'image', 'link', 'pub_date'],
+            update_fields=['category', 'title', 'description', 'image', 'link', 'publicated_at'],
             unique_fields=['external_id'],
         )
 
@@ -112,3 +113,18 @@ class NewService:
 
             New.objects.bulk_update(news, fields=new_data.keys())
             Category.objects.bulk_update(categories, fields=category_data.keys())
+
+    @classmethod
+    def add_new_viewer(cls, new: New | int, user: User | int):
+        if not isinstance(new, New):
+            try:
+                new = New.objects.get(id=new)
+            except New.DoesNotExist:
+                return
+        if not isinstance(user, User):
+            try:
+                user = User.objects.get(id=user)
+            except User.DoesNotExist:
+                return
+
+        new.viewers.add(user)
