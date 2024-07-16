@@ -2,12 +2,13 @@ celery==5.3.6
 channels==4.0.0
 channels-redis==4.1.0
 daphne==4.0.0
-Django==5.0
+Django==5.0.7
 django-cacheops==7.0.2
 django-cors-headers==4.3.1
 django-environ==0.11.2
 django-filter==23.5
 django-modeltranslation==0.18.11
+django-query-counter==0.4.0
 django-querycount==0.8.3
 djangorestframework==3.14.0
 drf-nested-routers==0.93.5
@@ -16,7 +17,7 @@ drf-writable-nested==0.7.0
 gunicorn==21.2.0
 model-bakery==1.18.0
 pillow==10.2.0
-psycopg2==2.9.9
+psycopg2-binary==2.9.9
 pytest==8.2.0
 pytest-django==4.8.0
 pytest-faker==2.0.0
