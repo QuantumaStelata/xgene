@@ -1,11 +1,12 @@
-import mimetypes
+# import mimetypes
 
-import requests
+# import requests
 from django.conf import settings
-from django.core.files.base import ContentFile
 
 from apps.clan.models import Clan
 from generic.services.wargaming import WargamingRequestService
+
+# from django.core.files.base import ContentFile
 
 
 class ClanService:
@@ -14,12 +15,14 @@ class ClanService:
         data = WargamingRequestService.get('wot/clans/info/', params={'clan_id': settings.CLAN_ID})
         clan = data['data'][str(settings.CLAN_ID)]
 
-        emblem_url = clan['emblems']['x195']['portal']
-        response = requests.get(emblem_url)
-        content_type = response.headers['Content-Type']
-        extension = mimetypes.guess_extension(content_type)
-        filename = str(clan['clan_id']) + extension
-        emblem = ContentFile(response.content, name=filename)
+        # emblem_url = clan['emblems']['x195']['portal']
+        # response = requests.get(emblem_url)
+        # content_type = response.headers['Content-Type']
+        # extension = mimetypes.guess_extension(content_type)
+        # filename = str(clan['clan_id']) + extension
+        # emblem = ContentFile(response.content, name=filename)
+
+        emblem = f'clan/{settings.CLAN_ID}.png'
 
         clan, _ = Clan.objects.update_or_create(
             external_id=clan['clan_id'],
