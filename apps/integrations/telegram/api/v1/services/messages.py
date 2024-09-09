@@ -7,6 +7,7 @@ from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from apps.clan.models import Reserve
 from apps.clan.services.reserve import ReserveService
+from apps.core.services.core import CoreService
 from apps.core.services.login import LoginService
 from apps.core.services.users import UserService
 from apps.directory.models import Role
@@ -132,6 +133,7 @@ class ActivateReservesMessage(TelegramMessageGeneric):
         markup = InlineKeyboardMarkup()
 
         ReserveService.update_reserves()
+        CoreService.update_user_access_token(user=user.user)
 
         reserves = Reserve.objects.select_related('type').filter(
             ready_to_activate=True, disposable=False,
