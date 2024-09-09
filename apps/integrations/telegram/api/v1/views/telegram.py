@@ -13,7 +13,7 @@ class TelegramWebhookViewSet(generics.GenericAPIView):
     permission_classes = (TelegramPermission,)
 
     def post(self, request, *args, **kwargs):
-        telegram_webhook.s(request.data.copy()).apply_async()
+        telegram_webhook(request.data.copy())
         return Response()
 
 
