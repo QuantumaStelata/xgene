@@ -6,7 +6,9 @@ from telebot import TeleBot
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from apps.clan.models import Reserve
+from apps.clan.services.reserve import ReserveService
 from apps.core.services.login import LoginService
+from apps.core.services.users import UserService
 from apps.directory.models import Role
 from apps.integrations.telegram.models import TelegramUser
 from generic.utils import concat_path_to_domain
@@ -103,6 +105,8 @@ class MyStatisticsMessage(TelegramMessageGeneric):
 
     @classmethod
     def get_text(cls, user: TelegramUser | int) -> str:
+        UserService.update_user_stats(user=user.user)
+
         return super().get_text(user) % {
             'battles': user.user.battles,
             'wins_percent': user.user.wins_percent,
@@ -126,6 +130,8 @@ class ActivateReservesMessage(TelegramMessageGeneric):
     @classmethod
     def get_markup(cls, user: TelegramUser | int) -> None:
         markup = InlineKeyboardMarkup()
+
+        ReserveService.update_reserves()
 
         reserves = Reserve.objects.select_related('type').filter(
             ready_to_activate=True, disposable=False,
