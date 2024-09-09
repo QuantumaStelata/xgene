@@ -15,6 +15,7 @@ urlpatterns = [
     path('api/v1/marks/', include('apps.marks.api.v1.urls')),
     path('api/v1/tactic/', include('apps.tactic.api.v1.urls')),
     path('api/v1/news/', include('apps.news.api.v1.urls')),
+    path('api/v1/integrations/telegram/', include('apps.integrations.telegram.api.v1.urls'), name='telegram'),
 ]
 
 if settings.DEBUG:

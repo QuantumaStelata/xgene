@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-09 15:58+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+#: .\apps\integrations\telegram\api\v1\services\messages.py:57
+msgid "An error occurred, please try again later"
+msgstr "Возникла ошибка, попробуйте позже"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:61
+#, python-format
+msgid "Log in via WG OpenID using the [link](%(link)s)"
+msgstr "Авторизируйтесь через WG OpenID по [ссылке](%(link)s)"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:74
+#, python-format
+msgid "Hello, %(username)s!"
+msgstr "Привет, %(username)s!"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:83
+msgid "My statistics"
+msgstr "Моя статистика"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:91
+msgid "Activate reserves"
+msgstr "Активировать резервы"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:98
+#, python-format
+msgid ""
+"My statistics:\n"
+"\n"
+"Battles: %(battles)s\n"
+"Winrate: %(wins_percent)s%%\n"
+"WN8: %(wn8)s\n"
+"\n"
+"Max damage: %(max_damage)s (%(max_damage_tank)s)\n"
+"Max frags: %(max_frags)s (%(max_frags_tank)s)"
+msgstr ""
+"Моя статистика:\n"
+"\n"
+"Кол-во боев: %(battles)s\n"
+"Процент побед: %(wins_percent)s%%\n"
+"WN8: %(wn8)s\n"
+"\n"
+"Максимальный дамаг: %(max_damage)s (%(max_damage_tank)s)\n"
+"Максимальное кол-во фрагов: %(max_frags)s (%(max_frags_tank)s)"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:117
+#: .\apps\integrations\telegram\api\v1\services\messages.py:137
+msgid "Back"
+msgstr "Назад"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:122
+msgid "Which reserve should be activated?"
+msgstr "Какой резерв нужно активировать?"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:130
+#, python-format
+msgid "%(name)s, %(level)s lvl (%(count)s pieces)"
+msgstr "%(name)s, %(level)s уровень (%(count)s шт.)"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:142
+msgid "The reserve has been successfully activated!"
+msgstr "Резерв успешно активирован!"

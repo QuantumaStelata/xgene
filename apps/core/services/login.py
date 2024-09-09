@@ -5,6 +5,7 @@ from rest_framework.authtoken.models import Token
 
 from apps.core.models import User
 from apps.core.services.core import CoreService
+from generic.utils import concat_path_to_domain
 
 
 class LoginService:
@@ -13,7 +14,7 @@ class LoginService:
         host = settings.WG_API_HOST
 
         if not redirect_uri:
-            redirect_uri = f'{settings.FRONT_DOMAIN}login'
+            redirect_uri = concat_path_to_domain('login')
 
         params = urlencode({
             'application_id': settings.APPLICATION_ID,
