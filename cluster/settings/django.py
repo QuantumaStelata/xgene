@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'apps.marks',
     'apps.tactic',
     'apps.news',
+    'apps.integrations.telegram',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +93,10 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'cluster', 'locale'),
+)
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (
