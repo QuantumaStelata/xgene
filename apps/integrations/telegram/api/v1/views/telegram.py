@@ -1,3 +1,5 @@
+import contextlib
+
 from django.conf import settings
 from django.http.response import HttpResponseRedirect
 from rest_framework import generics, permissions
@@ -13,7 +15,8 @@ class TelegramWebhookViewSet(generics.GenericAPIView):
     permission_classes = (TelegramPermission,)
 
     def post(self, request, *args, **kwargs):
-        telegram_webhook(request.data.copy())
+        with contextlib.suppress(Exception):
+            telegram_webhook(request.data.copy())
         return Response()
 
 
