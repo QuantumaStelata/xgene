@@ -131,8 +131,9 @@ class TelegramService:
             activated_at__range=(now - timedelta(minutes=delta), now),
         )
 
-        for user in users:
-            activate(user.language)
+        if reserves:
+            for user in users:
+                activate(user.language)
 
-            for reserve in reserves:
-                ReserveActivatedMessage.send(user=user, reserve=reserve)
+                for reserve in reserves:
+                    ReserveActivatedMessage.send(user=user, reserve=reserve)
