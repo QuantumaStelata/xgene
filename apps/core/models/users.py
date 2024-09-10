@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import F, Value
+from django.db.models.functions import Cast, Round
 
 from mixins.models import DateTimeMixin, ExternalIDMixin
 
@@ -46,12 +47,16 @@ class User(DateTimeMixin, ExternalIDMixin, AbstractUser):
     hits = models.PositiveIntegerField(null=True)
 
     wins_percent = models.GeneratedField(
-        expression=F('wins') * Value(100) / F('battles'),
+        expression=Round(
+            Cast(F('wins'), models.FloatField()) * Value(100.0) / Cast(F('battles'), models.FloatField()), precision=2,
+        ),
         output_field=models.FloatField(),
         db_persist=True,
     )
     hits_percent = models.GeneratedField(
-        expression=F('hits') * Value(100) / F('shots'),
+        expression=Round(
+            Cast(F('hits'), models.FloatField()) * Value(100.0) / Cast(F('shots'), models.FloatField()), precision=2,
+        ),
         output_field=models.FloatField(),
         db_persist=True,
     )
