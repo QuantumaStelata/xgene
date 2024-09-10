@@ -20,7 +20,7 @@ class UserService:
 
         for user in users:
             cls.update_user_stats(user=user, save=False)
-            cls.update_user_wn8(user=user, save=False)
+            # cls.update_user_wn8(user=user, save=False)
             bulk_users.append(user)
 
         fields = cls.PRIVATE_FIELDS + cls.GENERIC_FIELDS + cls.TANKS_FIELDS + ('wn8',)
