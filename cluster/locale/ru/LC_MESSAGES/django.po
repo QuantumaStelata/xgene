@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-09 15:58+0300\n"
+"POT-Creation-Date: 2024-09-10 17:02+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,29 +19,30 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
-#: .\apps\integrations\telegram\api\v1\services\messages.py:57
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:59
 msgid "An error occurred, please try again later"
 msgstr "Возникла ошибка, попробуйте позже"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:61
+#: .\apps\integrations\telegram\api\v1\services\messages.py:63
 #, python-format
 msgid "Log in via WG OpenID using the [link](%(link)s)"
 msgstr "Авторизируйтесь через WG OpenID по [ссылке](%(link)s)"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:74
+#: .\apps\integrations\telegram\api\v1\services\messages.py:76
 #, python-format
 msgid "Hello, %(username)s!"
 msgstr "Привет, %(username)s!"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:83
+#: .\apps\integrations\telegram\api\v1\services\messages.py:85
 msgid "My statistics"
 msgstr "Моя статистика"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:91
+#: .\apps\integrations\telegram\api\v1\services\messages.py:94
 msgid "Activate reserves"
 msgstr "Активировать резервы"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:98
+#: .\apps\integrations\telegram\api\v1\services\messages.py:102
 #, python-format
 msgid ""
 "My statistics:\n"
@@ -62,20 +63,25 @@ msgstr ""
 "Максимальный дамаг: %(max_damage)s (%(max_damage_tank)s)\n"
 "Максимальное кол-во фрагов: %(max_frags)s (%(max_frags_tank)s)"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:117
-#: .\apps\integrations\telegram\api\v1\services\messages.py:137
+#: .\apps\integrations\telegram\api\v1\services\messages.py:121
+#: .\apps\integrations\telegram\api\v1\services\messages.py:144
 msgid "Back"
 msgstr "Назад"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:122
+#: .\apps\integrations\telegram\api\v1\services\messages.py:126
 msgid "Which reserve should be activated?"
 msgstr "Какой резерв нужно активировать?"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:130
+#: .\apps\integrations\telegram\api\v1\services\messages.py:137
 #, python-format
 msgid "%(name)s, %(level)s lvl (%(count)s pieces)"
 msgstr "%(name)s, %(level)s уровень (%(count)s шт.)"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:142
+#: .\apps\integrations\telegram\api\v1\services\messages.py:149
 msgid "The reserve has been successfully activated!"
 msgstr "Резерв успешно активирован!"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:153
+#, python-format
+msgid "Enter the game, the \"%(reserve_name)s\" reserve is activated!"
+msgstr "Заходи в игру, резерв \"%(reserve_name)s\" активирован!"

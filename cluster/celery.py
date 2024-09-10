@@ -45,6 +45,10 @@ app.conf.beat_schedule = {
         'task': 'apps.clan.tasks.reserve.activate_schedule_reserves',
         'schedule': crontab(minute='*/1'),
     },
+    'reserve-activated-message': {
+        'task': 'apps.integrations.telegram.tasks.telegram.reserve_activated_message',
+        'schedule': crontab(minute='*/5'),
+    },
     'update-stronghold': {
         'task': 'apps.clan.tasks.stronghold.update_stronghold',
         'schedule': crontab(minute=0, hour='*/1'),

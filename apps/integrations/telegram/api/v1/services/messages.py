@@ -1,5 +1,6 @@
 import enum
 
+from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from telebot import TeleBot
@@ -24,28 +25,29 @@ class MessageCallBack(str, enum.Enum):
 class TelegramMessageGeneric:
     text: str = None
     parse_mode: str = 'Markdown'
+    bot = TeleBot(settings.TELEGRAM_API_KEY)
 
     @classmethod
-    def get_text(cls, user: TelegramUser | int) -> str:
+    def get_text(cls, user: TelegramUser | int, *args, **kwargs) -> str:
         return str(cls.text)
 
     @classmethod
-    def get_markup(cls, user: TelegramUser | int) -> None:
+    def get_markup(cls, user: TelegramUser | int, *args, **kwargs) -> None:
         return None
 
     @classmethod
-    def get_chat_id(cls, user: TelegramUser | int) -> int:
+    def get_chat_id(cls, user: TelegramUser | int, *args, **kwargs) -> int:
         if isinstance(user, TelegramUser):
             return user.external_id
         return user
 
     @classmethod
-    def send(cls, bot: TeleBot, user: TelegramUser | int) -> Message:
-        chat_id = cls.get_chat_id(user=user)
-        text = cls.get_text(user=user)
-        markup = cls.get_markup(user=user)
+    def send(cls, user: TelegramUser | int, *args, **kwargs) -> Message:
+        chat_id = cls.get_chat_id(user=user, *args, **kwargs)
+        text = cls.get_text(user=user, *args, **kwargs)
+        markup = cls.get_markup(user=user, *args, **kwargs)
 
-        return bot.send_message(
+        return cls.bot.send_message(
             chat_id=chat_id,
             text=text,
             reply_markup=markup,
@@ -61,24 +63,24 @@ class AuthMessage(TelegramMessageGeneric):
     text = _('Log in via WG OpenID using the [link](%(link)s)')
 
     @classmethod
-    def get_text(cls, user: TelegramUser | int) -> str:
+    def get_text(cls, user: TelegramUser | int, *args, **kwargs) -> str:
         if isinstance(user, TelegramUser):
             user = user.external_id
 
         redirect_uri = concat_path_to_domain(reverse('telegram:login', kwargs={'user_id': user}))
         link = LoginService.get_openid_url(redirect_uri=redirect_uri)
-        return super().get_text(user) % {'link': link}
+        return super().get_text(user, *args, **kwargs) % {'link': link}
 
 
 class MainMessage(TelegramMessageGeneric):
     text = _('Hello, %(username)s!')
 
     @classmethod
-    def get_text(cls, user: TelegramUser | int) -> str:
-        return super().get_text(user) % {'username': user.user.username}
+    def get_text(cls, user: TelegramUser | int, *args, **kwargs) -> str:
+        return super().get_text(user, *args, **kwargs) % {'username': user.user.username}
 
     @classmethod
-    def get_markup(cls, user: TelegramUser | int) -> InlineKeyboardMarkup:
+    def get_markup(cls, user: TelegramUser | int, *args, **kwargs) -> InlineKeyboardMarkup:
         markup = InlineKeyboardMarkup()
         markup.add(InlineKeyboardButton(text=str(_('My statistics')), callback_data=MessageCallBack.MY_STATISTICS))
 
@@ -102,8 +104,8 @@ class MyStatisticsMessage(TelegramMessageGeneric):
     )
 
     @classmethod
-    def get_text(cls, user: TelegramUser | int) -> str:
-        return super().get_text(user) % {
+    def get_text(cls, user: TelegramUser | int, *args, **kwargs) -> str:
+        return super().get_text(user, *args, **kwargs) % {
             'battles': user.user.battles,
             'wins_percent': user.user.wins_percent,
             'wn8': user.user.wn8,
@@ -114,7 +116,7 @@ class MyStatisticsMessage(TelegramMessageGeneric):
         }
 
     @classmethod
-    def get_markup(cls, user: TelegramUser | int) -> None:
+    def get_markup(cls, user: TelegramUser | int, *args, **kwargs) -> None:
         markup = InlineKeyboardMarkup()
         markup.add(InlineKeyboardButton(text=str(_('Back')), callback_data=MessageCallBack.BACK_TO_MAIN))
         return markup
@@ -124,7 +126,7 @@ class ActivateReservesMessage(TelegramMessageGeneric):
     text = _('Which reserve should be activated?')
 
     @classmethod
-    def get_markup(cls, user: TelegramUser | int) -> None:
+    def get_markup(cls, user: TelegramUser | int, *args, **kwargs) -> None:
         markup = InlineKeyboardMarkup()
 
         reserves = Reserve.objects.select_related('type').filter(
@@ -143,5 +145,13 @@ class ActivateReservesMessage(TelegramMessageGeneric):
         return markup
 
 
-class ReserveActivatedMessage(TelegramMessageGeneric):
+class ReserveSuccessfullyActivatedMessage(TelegramMessageGeneric):
     text = _('The reserve has been successfully activated!')
+
+
+class ReserveActivatedMessage(TelegramMessageGeneric):
+    text = _('Enter the game, the "%(reserve_name)s" reserve is activated!')
+
+    @classmethod
+    def get_text(cls, user: TelegramUser | int, reserve: Reserve, *args, **kwargs) -> str:  # pylint: disable=W0221
+        return super().get_text(user, *args, **kwargs) % {'reserve_name': reserve.type.name}
