@@ -1,7 +1,9 @@
 import contextlib
+from datetime import timedelta
 
 from django.conf import settings
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import activate
 from telebot import TeleBot
 from telebot.types import CallbackQuery, Message, Update
@@ -11,7 +13,7 @@ from apps.clan.services.reserve import ReserveService
 from apps.core.services.login import LoginService
 from apps.integrations.telegram.api.v1.services.messages import (
     ActivateReservesMessage, AuthMessage, ErrorMessage, MainMessage, MessageCallBack, MyStatisticsMessage,
-    ReserveActivatedMessage,
+    ReserveActivatedMessage, ReserveSuccessfullyActivatedMessage,
 )
 from apps.integrations.telegram.models import TelegramUser
 from generic.utils import concat_path_to_domain
@@ -42,10 +44,13 @@ class TelegramService:
         if not detail:
             return
 
-        cls.set_language(detail.from_user.language_code)
+        language = cls.validate_language(detail.from_user.language_code)
+        activate(language)
 
         try:
-            user = TelegramUser.objects.select_related('user').get(external_id=detail.from_user.id)
+            user, _ = TelegramUser.objects.select_related('user').update_or_create(
+                external_id=detail.from_user.id, defaults={'language': language},
+            )
         except TelegramUser.DoesNotExist:
             return AuthMessage.send(bot=cls.bot, user=detail.from_user.id)
 
@@ -61,11 +66,11 @@ class TelegramService:
             return update.callback_query
 
     @classmethod
-    def set_language(cls, language: str):
+    def validate_language(cls, language: str) -> str:
         if language.lower().strip() not in settings.MODELTRANSLATION_LANGUAGES:
             language = settings.MODELTRANSLATION_DEFAULT_LANGUAGE
 
-        activate(language)
+        return language
 
     @classmethod
     def proccess_callback(cls, callback: CallbackQuery, user: TelegramUser):
@@ -82,12 +87,12 @@ class TelegramService:
                 with contextlib.suppress(Reserve.DoesNotExist):
                     reserve = Reserve.objects.get(id=reserve_id)
                     if ReserveService.activate_reserve(user=user.user, reserve=reserve):
-                        message = ReserveActivatedMessage
+                        message = ReserveSuccessfullyActivatedMessage
 
         if not message:
             message = ErrorMessage
 
-        return message.send(bot=cls.bot, user=user)
+        return message.send(user=user)
 
     @classmethod
     def send_message(cls, user: int | TelegramUser, **options):
@@ -116,3 +121,18 @@ class TelegramService:
 
         user, _ = TelegramUser.objects.get_or_create(user=token.user, external_id=user_id)
         return MainMessage.send(bot=cls.bot, user=user)
+
+    @classmethod
+    def reserve_activated_message(cls, delta: int = 5):
+        now = timezone.now()
+        users = TelegramUser.objects.all()
+        reserves = Reserve.objects.select_related('type').filter(
+            active_till__gt=now,
+            activated_at__range=(now - timedelta(minutes=delta), now),
+        )
+
+        for user in users:
+            activate(user.language)
+
+            for reserve in reserves:
+                ReserveActivatedMessage.send(user=user, reserve=reserve)
