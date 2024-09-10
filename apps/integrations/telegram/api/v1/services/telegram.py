@@ -88,6 +88,8 @@ class TelegramService:
                     reserve = Reserve.objects.get(id=reserve_id)
                     if ReserveService.activate_reserve(user=user.user, reserve=reserve):
                         message = ReserveSuccessfullyActivatedMessage
+                        ReserveService.update_reserves()
+                        cls.reserve_activated_message(delta=1)
 
         if not message:
             message = ErrorMessage
