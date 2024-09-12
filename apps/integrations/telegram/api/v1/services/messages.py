@@ -60,7 +60,7 @@ class TelegramMessageGeneric:
         activate(user.language)
 
         chat_id = cls.get_chat_id(user=user, *args, **kwargs)
-        text = cls.get_text(user=user, *args, **kwargs)
+        text = cls.get_text(user=user, *args, **kwargs).replace('_', r'\_')
         markup = cls.get_markup(user=user, *args, **kwargs)
 
         if cls.with_back_button:
