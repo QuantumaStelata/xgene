@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-10 17:02+0300\n"
+"POT-Creation-Date: 2024-09-11 13:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,32 +20,40 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:59
+#: .\apps\integrations\telegram\api\v1\services\messages.py:55
+msgid "Back"
+msgstr "Назад"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:78
 msgid "An error occurred, please try again later"
 msgstr "Возникла ошибка, попробуйте позже"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:63
+#: .\apps\integrations\telegram\api\v1\services\messages.py:82
 #, python-format
 msgid "Log in via WG OpenID using the [link](%(link)s)"
 msgstr "Авторизируйтесь через WG OpenID по [ссылке](%(link)s)"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:76
+#: .\apps\integrations\telegram\api\v1\services\messages.py:95
 #, python-format
 msgid "Hello, %(username)s!"
 msgstr "Привет, %(username)s!"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:85
+#: .\apps\integrations\telegram\api\v1\services\messages.py:104
 msgid "My statistics"
 msgstr "Моя статистика"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:94
+#: .\apps\integrations\telegram\api\v1\services\messages.py:113
 msgid "Activate reserves"
 msgstr "Активировать резервы"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:102
+#: .\apps\integrations\telegram\api\v1\services\messages.py:117
+msgid "Clanmate statistics"
+msgstr "Статистика соклановцев"
+
+#: .\apps\integrations\telegram\api\v1\services\messages.py:125
 #, python-format
 msgid ""
-"My statistics:\n"
+"%(username)s's statistics:\n"
 "\n"
 "Battles: %(battles)s\n"
 "Winrate: %(wins_percent)s%%\n"
@@ -54,7 +62,7 @@ msgid ""
 "Max damage: %(max_damage)s (%(max_damage_tank)s)\n"
 "Max frags: %(max_frags)s (%(max_frags_tank)s)"
 msgstr ""
-"Моя статистика:\n"
+"Статистика игрока %(username)s:\n"
 "\n"
 "Кол-во боев: %(battles)s\n"
 "Процент побед: %(wins_percent)s%%\n"
@@ -63,25 +71,24 @@ msgstr ""
 "Максимальный дамаг: %(max_damage)s (%(max_damage_tank)s)\n"
 "Максимальное кол-во фрагов: %(max_frags)s (%(max_frags_tank)s)"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:121
-#: .\apps\integrations\telegram\api\v1\services\messages.py:144
-msgid "Back"
-msgstr "Назад"
+#: .\apps\integrations\telegram\api\v1\services\messages.py:145
+msgid "Select a player to view his statistics:"
+msgstr "Выберите игрока, чтобы просмотреть его статистику:"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:126
+#: .\apps\integrations\telegram\api\v1\services\messages.py:172
 msgid "Which reserve should be activated?"
 msgstr "Какой резерв нужно активировать?"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:137
+#: .\apps\integrations\telegram\api\v1\services\messages.py:184
 #, python-format
 msgid "%(name)s, %(level)s lvl (%(count)s pieces)"
 msgstr "%(name)s, %(level)s уровень (%(count)s шт.)"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:149
+#: .\apps\integrations\telegram\api\v1\services\messages.py:195
 msgid "The reserve has been successfully activated!"
 msgstr "Резерв успешно активирован!"
 
-#: .\apps\integrations\telegram\api\v1\services\messages.py:153
+#: .\apps\integrations\telegram\api\v1\services\messages.py:199
 #, python-format
 msgid "Enter the game, the \"%(reserve_name)s\" reserve is activated!"
 msgstr "Заходи в игру, резерв \"%(reserve_name)s\" активирован!"
