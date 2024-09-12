@@ -9,7 +9,10 @@ from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from apps.clan.models import Reserve
 from apps.core.models import User
+from apps.clan.services.reserve import ReserveService
+from apps.core.services.core import CoreService
 from apps.core.services.login import LoginService
+from apps.core.services.users import UserService
 from apps.directory.models import Role
 from apps.integrations.telegram.models import TelegramUser
 from generic.utils import concat_path_to_domain
@@ -140,6 +143,8 @@ class UserStatisticsMessage(TelegramMessageGeneric):
 
     @classmethod
     def get_text(cls, user: TelegramUser | int, requested_user: User, *args, **kwargs) -> str:
+        UserService.update_user_stats(user=user.user)
+
         return super().get_text(user, *args, **kwargs) % {
             'username': requested_user.username,
             'battles': requested_user.battles,
@@ -201,6 +206,9 @@ class ActivateReservesMessage(TelegramMessageGeneric):
     @classmethod
     def get_markup(cls, user: TelegramUser | int, *args, **kwargs) -> None:
         markup = InlineKeyboardMarkup()
+
+        ReserveService.update_reserves()
+        CoreService.update_user_access_token(user=user.user)
 
         reserves = Reserve.objects.select_related('type').filter(
             ready_to_activate=True, disposable=False,
