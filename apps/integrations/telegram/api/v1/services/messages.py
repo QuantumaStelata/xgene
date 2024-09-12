@@ -8,8 +8,8 @@ from telebot import TeleBot
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from apps.clan.models import Reserve
-from apps.core.models import User
 from apps.clan.services.reserve import ReserveService
+from apps.core.models import User
 from apps.core.services.core import CoreService
 from apps.core.services.login import LoginService
 from apps.core.services.users import UserService
@@ -166,6 +166,9 @@ class PageUserStatisticsMessage(TelegramMessageGeneric):
         pagination = 5
         queryset_from = page * pagination
         queryset_to = queryset_from + pagination
+
+        if page == 0:
+            CoreService.update_users()
 
         requested_users = User.objects.exclude(id=user.user_id).order_by('role')
         requested_users_count = requested_users.count()
