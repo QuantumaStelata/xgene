@@ -10,10 +10,11 @@ from telebot.types import CallbackQuery, Message, Update
 
 from apps.clan.models import Reserve
 from apps.clan.services.reserve import ReserveService
+from apps.core.models import User
 from apps.core.services.login import LoginService
 from apps.integrations.telegram.api.v1.services.messages import (
-    ActivateReservesMessage, AuthMessage, ErrorMessage, MainMessage, MessageCallBack, MyStatisticsMessage,
-    ReserveActivatedMessage, ReserveSuccessfullyActivatedMessage,
+    ActivateReservesMessage, AuthMessage, ErrorMessage, MainMessage, MessageCallBack, PageUserStatisticsMessage,
+    ReserveActivatedMessage, ReserveSuccessfullyActivatedMessage, UserStatisticsMessage,
 )
 from apps.integrations.telegram.models import TelegramUser
 from generic.utils import concat_path_to_domain
@@ -52,11 +53,11 @@ class TelegramService:
                 external_id=detail.from_user.id, defaults={'language': language},
             )
         except TelegramUser.DoesNotExist:
-            return AuthMessage.send(bot=cls.bot, user=detail.from_user.id)
+            return AuthMessage.send(user=detail.from_user.id)
 
         if isinstance(detail, CallbackQuery):
             return cls.proccess_callback(detail, user)
-        return MainMessage.send(bot=cls.bot, user=user)
+        return MainMessage.send(user=user)
 
     @classmethod
     def get_detail(cls, update: Update) -> Message | CallbackQuery | None:
@@ -75,12 +76,21 @@ class TelegramService:
     @classmethod
     def proccess_callback(cls, callback: CallbackQuery, user: TelegramUser):
         message = None
+        kwargs = {}
 
         match callback.data.split(':'):
             case MessageCallBack.BACK_TO_MAIN, *_:
                 message = MainMessage
-            case MessageCallBack.MY_STATISTICS, *_:
-                message = MyStatisticsMessage
+            case MessageCallBack.PAGE_STATISTICS, str() as page:
+                with contextlib.suppress(ValueError):
+                    page = int(page)
+                    message = PageUserStatisticsMessage
+                    kwargs = {'page': page}
+            case MessageCallBack.USER_STATISTICS, str() as user_id:
+                with contextlib.suppress(User.DoesNotExist):
+                    requested_user = User.objects.get(id=user_id)
+                    message = UserStatisticsMessage
+                    kwargs = {'requested_user': requested_user}
             case MessageCallBack.ACTIVATE_RESERVES, *_:
                 message = ActivateReservesMessage
             case MessageCallBack.ACTIVATE_RESERVE, str() as reserve_id:
@@ -94,7 +104,7 @@ class TelegramService:
         if not message:
             message = ErrorMessage
 
-        return message.send(user=user)
+        return message.send(user=user, **kwargs)
 
     @classmethod
     def send_message(cls, user: int | TelegramUser, **options):
@@ -119,10 +129,10 @@ class TelegramService:
         )
 
         if not token:
-            return ErrorMessage.send(bot=cls.bot, user=external_id)
+            return ErrorMessage.send(user=external_id)
 
         user, _ = TelegramUser.objects.get_or_create(user=token.user, external_id=user_id)
-        return MainMessage.send(bot=cls.bot, user=user)
+        return MainMessage.send(user=user)
 
     @classmethod
     def reserve_activated_message(cls, delta: int = 5):
